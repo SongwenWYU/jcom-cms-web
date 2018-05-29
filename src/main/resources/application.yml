@@ -1,0 +1,5 @@
+spring.profiles.active=dev
+
+server.port=8082
+server.servlet.application-display-name=jcom-cms-web
+server.servlet.session.timeout=300D
