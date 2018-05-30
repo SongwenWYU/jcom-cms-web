@@ -14,3 +14,4 @@
 4. 异常页
 6. Custom Favicon
 7. Add a Servlet, Filter, or Listener to an Application
+8. ~~Add GPL2.0 license~~
