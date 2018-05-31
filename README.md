@@ -5,6 +5,9 @@ JCOM - 商品管理系统
 
 >java commodity management system web
 
+[![LICENSE](https://img.shields.io/badge/LICENSE-GPLv2-green.svg)](LICENSE)
+
+
 一个商品管理系统，管理商品信息及销售统计。提供浏览器、移动端浏览器及微信小程序。
 
 
@@ -47,4 +50,4 @@ CHANGE LOG
 
 版权信息
 -------
-[GPL V2](LICENSE)
+[GPLv2](LICENSE)
