@@ -42,7 +42,7 @@ To Do List
 7. Add a Servlet, Filter, or Listener to an Application
 8. ~~Add GPL2.0 license~~
 9. ~~Format README.md~~
-10. 添加自动测试、测试覆盖率
+10. ~~添加自动测试、测试覆盖率~~
 11. 代码质量分析
 
 CHANGE LOG
