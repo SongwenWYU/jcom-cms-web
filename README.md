@@ -6,7 +6,6 @@ JCOM - 商品管理系统
 >java commodity management system web
 
 [![Build Status](https://travis-ci.org/SongwenWYU/jcom-cms-web.svg?branch=master)](https://travis-ci.org/SongwenWYU/jcom-cms-web)
-[![Test Coverage](https://codeclimate.com/github/SongwenWYU/jcom-cms-web/badges/coverage.svg)](https://codeclimate.com/github/SongwenWYU/jcom-cms-web)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/9fdfc08e2f8e60ea66cc/test_coverage)](https://codeclimate.com/github/SongwenWYU/jcom-cms-web/test_coverage)
 [![LICENSE](https://img.shields.io/badge/LICENSE-GPLv2-green.svg)](LICENSE)
 
