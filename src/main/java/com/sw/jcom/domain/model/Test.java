@@ -1,12 +1,20 @@
 package com.sw.jcom.domain.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
  * test
  * @author 
  */
+@Entity
+@Table(name="test")
 public class Test implements Serializable {
+    @Id
+    @GeneratedValue
     private Integer id;
 
     private String name;

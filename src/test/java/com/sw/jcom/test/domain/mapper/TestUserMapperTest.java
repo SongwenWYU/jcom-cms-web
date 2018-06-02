@@ -13,7 +13,7 @@ import java.util.List;
  * Created on 2018/6/2
  */
 public class TestUserMapperTest extends BaseTestAbstract {
-    
+
     @Autowired
     private TestUserService testUserService;
 

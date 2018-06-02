@@ -3,6 +3,12 @@ package com.sw.jcom.domain.mapper;
 import com.sw.jcom.domain.model.Test;
 import com.sw.jcom.domain.model.TestExample;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import org.apache.ibatis.annotations.Param;
 
 public interface TestMapper {

@@ -1,18 +1,29 @@
 package com.sw.jcom.domain.model;
 
 import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * test_user
  * @author 
  */
+@Table(name="test_user")
 public class TestUser implements Serializable {
+    @Id
+    @GeneratedValue
     private Integer userid;
 
+    @NotEmpty
     private String username;
 
+    @NotEmpty
     private String password;
 
+    @NotEmpty
     private String phone;
 
     private static final long serialVersionUID = 1L;
