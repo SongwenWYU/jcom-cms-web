@@ -42,16 +42,20 @@ JCOM - 商品管理系统
 To Do List
 ----------
 
-1. ~~mysql+jpa+mybatis~~
-2. ~~Error Handling~~
-3. ~~Template Engines（Thymeleaf）~~
-4. ~~异常页~~
-6. ~~Custom Favicon~~
-7. Add a Servlet, Filter, or Listener to an Application
-8. ~~Add GPL2.0 license~~
-9. ~~Format README.md~~
-10. ~~添加自动测试、测试覆盖率~~
-11. 代码质量分析
+* Add a Servlet, Filter, or Listener to an Application
+* 添加登录逻辑
+* 添加主题框架
+* 代码质量分析
+* ~~mysql+jpa+mybatis~~
+* ~~Error Handling~~
+* ~~Template Engines（Thymeleaf）~~
+* ~~异常页~~
+* ~~Custom Favicon~~
+* ~~Add GPL2.0 license~~
+* ~~Format README.md~~
+* ~~添加自动测试、测试覆盖率~~
+
+
 
 CHANGE LOG
 ----------
