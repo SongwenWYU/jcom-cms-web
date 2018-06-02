@@ -1,26 +1,8 @@
-#开发时关闭缓存,不然没法看到实时页面
 spring:
+  #开发时关闭缓存,不然没法看到实时页面
   thymeleaf:
-    cache: false
-
-
-## mybatis
-mybatis:
-  # 重要配置
-  type-aliases-package: com.sw.jcom.domain.model
-  mapper-locations: classpath:mapper/*.xml
-
-#pagehelper
-pagehelper:
-    helperDialect: mysql
-    reasonable: true
-    supportMethodsArguments: true
-    params: count=countSql
-    returnPageInfo: check
-
-
-## mysql jdbc datasource
-spring:
+      cache: false
+  ## mysql jdbc datasource
   datasource:
     hikari:
       minimum-idle: 5
@@ -31,10 +13,10 @@ spring:
       max-lifetime: 1800000
       connection-timeout: 30000
       connection-test-query: SELECT 1
+#      driver-class-name: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://192.168.56.104:3306/jcom-cms-web?useSSL=true&useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
-#    driver-class-name: com.mysql.jdbc.Driver
-    driver-class-name: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
+    driver-class-name: com.mysql.jdbc.Driver
     username: test
     password: test123456
 
