@@ -34,7 +34,7 @@ JCOM - 商品管理系统
 To Do List
 ----------
 
-1. h2+jpa+mybatis
+1. ~~mysql+jpa+mybatis~~
 2. Error Handling
 3. Template Engines（Thymeleaf）
 4. 异常页
