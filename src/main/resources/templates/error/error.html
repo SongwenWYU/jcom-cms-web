@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:utext="${title}">Error Page</title>
+    <script th:replace="/common/bootstrap :: head"></script>
+    <link th:replace="/common/shards-ui :: shards-ui"/>
+    <link rel="stylesheet" th:href="@{/Shards-Version-2.0.3/css/shards-demo.min.css}"/>
+</head>
+<body>
+
+<!-- Welcome Section -->
+<div class="welcome d-flex justify-content-center flex-column">
+
+    <div class="inner-wrapper mt-auto mb-auto">
+        <h1 class="slide-in" th:text="${errorCode}">404</h1>
+        <p class="slide-in" th:text="${errorMsg}">出错啦！</p>
+    </div>
+    <div class="product-by">
+        <a href="https://github.com/SongwenWYU/jcom-cms-web" target="_blank">
+            <p>A Product By</p>
+            <img th:src="@{/image/logo-2.png}">
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

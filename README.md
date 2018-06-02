@@ -43,7 +43,7 @@ To Do List
 ----------
 
 1. ~~mysql+jpa+mybatis~~
-2. Error Handling
+2. ~~Error Handling~~
 3. ~~Template Engines（Thymeleaf）~~
 4. 异常页
 6. ~~Custom Favicon~~

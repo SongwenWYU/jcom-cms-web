@@ -16,9 +16,9 @@ public class WebErrorViewResolver implements ErrorViewResolver {
         mv.addObject("title", status.value());
         mv.addObject("errorCode", status.value());
         if(status.is5xxServerError()){
-            mv.addObject("msg", "内部错误！");
+            mv.addObject("errorMsg", status.getReasonPhrase());
         }else if(status.is4xxClientError()){
-            mv.addObject("msg", "未找到页面！");
+            mv.addObject("errorMsg", status.getReasonPhrase());
         }
         mv.setViewName("/error/error");
 
