@@ -2,3 +2,42 @@
 spring:
   thymeleaf:
     cache: false
+
+
+## mybatis
+mybatis:
+  # 重要配置
+  type-aliases-package: com.sw.jcom.domain.model
+  mapper-locations: classpath:mapper/*.xml
+
+#pagehelper
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+    returnPageInfo: check
+
+
+## mysql jdbc datasource
+spring:
+  datasource:
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 15
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: DatebookHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://192.168.56.104:3306/jcom-cms-web?useSSL=true&useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+#    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
+    username: test
+    password: test123456
+
+
+
+
