@@ -28,4 +28,9 @@ public class TestUserMapperTest extends BaseTestAbstract {
         List<TestUser> list = testUserService.searchLimit();
         System.out.println(list.size());
     }
+
+    @Test
+    public void searchJPA(){
+        System.out.println(testUserService.searchFromRespository(1).toString());
+    }
 }

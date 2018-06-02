@@ -1,16 +1,14 @@
 package com.sw.jcom.domain.model;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 /**
  * test_user
  * @author 
  */
+@Entity
 @Table(name="test_user")
 public class TestUser implements Serializable {
     @Id

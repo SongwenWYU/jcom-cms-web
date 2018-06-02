@@ -12,4 +12,5 @@ import java.util.List;
 public interface TestUserService {
     List<TestUser> searchList();
     List<TestUser> searchLimit();
+    TestUser searchFromRespository(int id);
 }
