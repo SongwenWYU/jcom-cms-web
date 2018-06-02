@@ -45,7 +45,7 @@ To Do List
 1. ~~mysql+jpa+mybatis~~
 2. ~~Error Handling~~
 3. ~~Template Engines（Thymeleaf）~~
-4. 异常页
+4. ~~异常页~~
 6. ~~Custom Favicon~~
 7. Add a Servlet, Filter, or Listener to an Application
 8. ~~Add GPL2.0 license~~
