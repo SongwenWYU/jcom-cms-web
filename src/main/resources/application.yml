@@ -1,6 +1,8 @@
 spring:
   profiles:
     active: dev
+  thymeleaf:
+    mode: HTML5
 
 server:
   port: 8080
@@ -8,3 +10,17 @@ server:
     application-display-name: jcom-cms-web
     session:
       timeout: 300D
+
+## mybatis
+mybatis:
+  # 重要配置
+  type-aliases-package: com.sw.jcom.domain.model
+  mapper-locations: classpath:mapper/*.xml
+
+#pagehelper
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+  returnPageInfo: check

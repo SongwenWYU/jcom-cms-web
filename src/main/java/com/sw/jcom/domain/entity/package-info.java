@@ -1,1 +1,0 @@
-package com.sw.jcom.domain.entity;
