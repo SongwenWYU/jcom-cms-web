@@ -42,6 +42,7 @@ JCOM - 商品管理系统
 To Do List
 ----------
 
+* index page
 * Add a Servlet, Filter, or Listener to an Application
 * 添加登录逻辑
 * 添加主题框架
