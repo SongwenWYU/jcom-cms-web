@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title th:text="${titie} + '| 首页' ">首页</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title th:text="${title} + '| 首页' ">首页</title>
     <script th:replace="/common/bootstrap"></script>
     <script th:replace="/common/shards-ui"></script>
 
@@ -19,7 +20,7 @@
             <!-- Navigation -->
             <nav class="navbar navbar-expand-lg navbar-dark pt-4 px-0">
                 <a class="navbar-brand mr-5" href="#">
-                    <img th:src="@{/image/logo-32x32.ico}" class="mr-2" alt="JCOM - 商品管理系统">
+                    <img th:src="@{/image/logo-2_93x33.png}" class="mr-2" alt="JCOM - 商品管理系统">
                     <!--JCOM - 商品管理系统-->
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,12 +66,12 @@
         <div class="inner-wrapper mt-auto mb-auto container">
             <div class="row">
                 <div class="col-lg-5 col-md-5 col-sm-12 mt-auto mb-auto mr-3">
-                    <h1 class="welcome-heading display-4 text-white">Keep Your Files in Sync</h1>
-                    <p class="text-muted">Keep your files in sync using the most secure and advanced solution to date.</p>
+                    <h1 class="welcome-heading display-4 text-white">商品管理系统</h1>
+                    <p class="text-muted">同时适配PC端浏览器、移动端浏览器、微信小程序，具备商品信息管理、出售、统计等多种功能</p>
                 </div>
 
                 <div class="col-lg-4 col-md-5 col-sm-12 ml-auto">
-                    <!--<img class="iphone-mockup ml-auto" src="images/app-promo/iphone-app-mockup.png" alt="iPhone App Mockup - Shards App Promo Demo">-->
+                    <a href="/login" class="btn btn-lg btn-warning btn-pill align-self-center"><i class="fa fa-sign-in mr-2"></i>进入系统</a>
                 </div>
             </div>
         </div>
