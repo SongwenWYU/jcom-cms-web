@@ -13,6 +13,7 @@ server:
     application-display-name: jcom-cms-web
     session:
       timeout: 300D
+#    context-path: /jcom
 
 ## mybatis
 mybatis:
