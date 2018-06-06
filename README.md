@@ -47,6 +47,9 @@ To Do List
 * 添加登录逻辑
 * 添加主题框架
 * 代码质量分析
+* 登陆页，登陆密码加密
+* 用户密码加密
+* 登录用户状态存储方式（session？）
 * ~~mysql+jpa+mybatis~~
 * ~~Error Handling~~
 * ~~Template Engines（Thymeleaf）~~
