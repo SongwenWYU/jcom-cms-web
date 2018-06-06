@@ -17,6 +17,8 @@ public interface SysUserMapper {
 
     SysUser selectByPrimaryKey(Integer id);
 
+    SysUser selectByUsername(String username);
+
     int updateByPrimaryKeySelective(SysUser record);
 
     int updateByPrimaryKey(SysUser record);

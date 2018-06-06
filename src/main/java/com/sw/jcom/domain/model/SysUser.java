@@ -24,6 +24,24 @@ import java.util.Date;
 @ToString
 @EqualsAndHashCode
 public class SysUser implements Serializable {
+
+    /**
+     * 账号国企
+     */
+    public final static String STATE_ACCOUNTEXPIRED = "STATE_ACCOUNTEXPIRED";
+    /**
+     * 账号锁定
+     */
+    public final static String STATE_LOCK = "STATE_LOCK";
+    /**
+     * TOKEN过期
+     */
+    public final static String STATE_TOKENEXPIRED = "STATE_TOKENEXPIRED";
+    /**
+     * 账号正常
+     */
+    public final static String STATE_NORMAL = "STATE_NORMAL";
+
     @Id
     @GeneratedValue
     private Integer id;
@@ -32,13 +50,13 @@ public class SysUser implements Serializable {
      * 用户名
      */
     @NotEmpty
-    private String loginName;
+    private String username;
 
     /**
      * 昵称
      */
     @NotEmpty
-    private String userName;
+    private String name;
 
     /**
      * 密码
@@ -47,10 +65,9 @@ public class SysUser implements Serializable {
     private String password;
 
     /**
-     * 所属角色
+     * 状态
      */
-    @NotEmpty
-    private Integer roleId;
+    private String state;
 
     /**
      * 邮箱

@@ -27,12 +27,10 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login(HttpServletRequest request, Model model, @RequestParam(value = "error", required = false) String error) {
-        if (error != null) {
-            model.addAttribute("error", "用户名或密码错误");
-        }
+        HttpSession session = request.getSession(false);
+        //TODO 判断用户是否登陆，未登陆进行登陆，已经登陆直接跳转
 
         if (error != null) {
-            HttpSession session = request.getSession(false);
             if (session != null) {
                 AuthenticationException ex = (AuthenticationException) session
                         .getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
@@ -40,15 +38,8 @@ public class LoginController {
             }
         }
 
-        renderHiddenInputs(model, request);
         model.addAttribute("title", name);
         return "login";
     }
 
-    private void renderHiddenInputs(Model model, HttpServletRequest request) {
-        CsrfToken token = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
-        if (token != null) {
-            model.addAttribute("_cscf", token);
-        }
-    }
 }
