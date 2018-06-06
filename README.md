@@ -7,7 +7,7 @@ JCOM - 商品管理系统
 
 [![Build Status](https://travis-ci.org/SongwenWYU/jcom-cms-web.svg?branch=master)](https://travis-ci.org/SongwenWYU/jcom-cms-web)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/9fdfc08e2f8e60ea66cc/test_coverage)](https://codeclimate.com/github/SongwenWYU/jcom-cms-web/test_coverage)
-[![LICENSE](https://img.shields.io/badge/LICENSE-GPLv2-green.svg)](LICENSE)
+[![LICENSE](https://img.shields.io/badge/LICENSE-GPLv2-brightgreen.svg)](LICENSE)
 
 
 一个商品管理系统，管理商品信息及销售统计。提供浏览器、移动端浏览器及微信小程序。
