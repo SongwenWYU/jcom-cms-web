@@ -3,6 +3,7 @@ package com.sw.jcom.config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,11 +18,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 import java.io.IOException;
 
 /**
@@ -40,6 +45,9 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
     @Autowired
     private AuthenticationProvider securityProvider;
+
+    @Autowired
+    private DataSource dataSource;
 
     @Override
     protected UserDetailsService userDetailsService() {
@@ -76,7 +84,7 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
                     @Override
                     public void onAuthenticationSuccess(HttpServletRequest arg0, HttpServletResponse arg1, Authentication arg2)
                             throws IOException, ServletException {
-                        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                        Object principal = arg2.getPrincipal();
                         if (principal != null && principal instanceof UserDetails) {
                             UserDetails user = (UserDetails) principal;
                             logger.info(">>>>>>>>>>登录用户:{}<<<<<<<<<<", user.getUsername());
@@ -84,6 +92,7 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
                             arg0.getSession().setAttribute("userDetail", user);
                             arg1.sendRedirect("/");
                         }
+
                     }
                 })
                 //失败处理
@@ -104,9 +113,26 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/")
                 .permitAll();
+//                .and()
+//                .rememberMe()
+//                .tokenValiditySeconds(1209600)
+//                .tokenRepository(persistentTokenRepository());
 //                .and()
 //                暂时禁用CSRF，否则无法提交表单
 //                .csrf().disable();
     }
+
+//    /**
+//     * 记住我功能
+//     * @return
+//     */
+//    @Bean
+//    public PersistentTokenRepository persistentTokenRepository(){
+//        JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
+//        jdbcTokenRepository.setDataSource(dataSource);
+//        return jdbcTokenRepository;
+//    }
 }
