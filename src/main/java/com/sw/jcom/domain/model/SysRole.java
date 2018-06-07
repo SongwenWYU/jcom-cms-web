@@ -1,6 +1,9 @@
 package com.sw.jcom.domain.model;
 
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,10 +15,11 @@ import java.util.Date;
 
 /**
  * sys_role
- * @author 
+ *
+ * @author
  */
 @Entity
-@Table(name="sys_role")
+@Table(name = "sys_role")
 @Setter
 @Getter
 @ToString
@@ -28,7 +32,12 @@ public class SysRole implements Serializable {
     /**
      * 角色名
      */
-    private String name;
+    private String role;
+
+    /**
+     * 名称
+     */
+    private String roleName;
 
     /**
      * 父角色id
@@ -39,7 +48,7 @@ public class SysRole implements Serializable {
      * 排序
      */
     @NotEmpty
-    private Integer order;
+    private Integer roleOrder;
 
     /**
      * 创建时间
@@ -58,6 +67,4 @@ public class SysRole implements Serializable {
     private Integer gmtUserId;
 
     private static final long serialVersionUID = 1L;
-
-
 }

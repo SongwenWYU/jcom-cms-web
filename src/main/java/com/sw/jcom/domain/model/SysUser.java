@@ -56,7 +56,7 @@ public class SysUser implements Serializable {
      * 昵称
      */
     @NotEmpty
-    private String name;
+    private String nickname;
 
     /**
      * 密码

@@ -4,7 +4,7 @@
     <resultMap id="BaseResultMap" type="com.sw.jcom.domain.model.SysUser">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="username" jdbcType="VARCHAR" property="username"/>
-        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
         <result column="state" jdbcType="VARCHAR" property="state"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
@@ -13,7 +13,7 @@
         <result column="gmt_user_id" jdbcType="INTEGER" property="gmtUserId"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, username, name, password, state, email, gmt_create, gmt_modified, gmt_user_id
+    id, username, nickname, password, state, email, gmt_create, gmt_modified, gmt_user_id
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
@@ -34,11 +34,11 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
     <insert id="insert" parameterType="com.sw.jcom.domain.model.SysUser">
-    insert into sys_user (id, username, name, 
+    insert into sys_user (id, username, nickname,
       password, state, email, 
       gmt_create, gmt_modified, gmt_user_id
       )
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR},
       #{password,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{gmtUserId,jdbcType=INTEGER}
       )
@@ -52,8 +52,8 @@
             <if test="username != null">
                 username,
             </if>
-            <if test="name != null">
-                name,
+            <if test="nickname != null">
+                nickname,
             </if>
             <if test="password != null">
                 password,
@@ -81,8 +81,8 @@
             <if test="username != null">
                 #{username,jdbcType=VARCHAR},
             </if>
-            <if test="name != null">
-                #{name,jdbcType=VARCHAR},
+            <if test="nickname != null">
+                #{nickname,jdbcType=VARCHAR},
             </if>
             <if test="password != null">
                 #{password,jdbcType=VARCHAR},
@@ -110,8 +110,8 @@
             <if test="username != null">
                 username = #{username,jdbcType=VARCHAR},
             </if>
-            <if test="name != null">
-                name = #{name,jdbcType=VARCHAR},
+            <if test="nickname != null">
+                nickname = #{nickname,jdbcType=VARCHAR},
             </if>
             <if test="password != null">
                 password = #{password,jdbcType=VARCHAR},
@@ -137,7 +137,7 @@
     <update id="updateByPrimaryKey" parameterType="com.sw.jcom.domain.model.SysUser">
     update sys_user
     set username = #{username,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       state = #{state,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},

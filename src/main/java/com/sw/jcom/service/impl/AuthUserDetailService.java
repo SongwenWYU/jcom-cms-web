@@ -50,8 +50,8 @@ public class AuthUserDetailService implements UserDetailsService {
                 for(SysRoleUser ur : urs) {
                     Integer roleId = ur.getRoleId();
                     SysRole sysRole = roleMapper.selectByPrimaryKey(roleId);
-                    String roleName = sysRole.getName();
-                    SimpleGrantedAuthority grant = new SimpleGrantedAuthority(roleName);
+                    String role = sysRole.getRole();
+                    SimpleGrantedAuthority grant = new SimpleGrantedAuthority(role);
                     authorities.add(grant);
                 }
                 //封装自定义UserDetails类
