@@ -31,7 +31,7 @@ public class LoginController {
         HttpSession session = request.getSession(false);
         //TODO 判断用户是否登陆，未登陆进行登陆，已经登陆直接跳转
         if(session != null && session.getAttribute(Contents.SESSION_USERDETAIL) != null){
-            return "/dashboard";
+            return "redirect:/dashboard";
         }
         if (error != null && session != null) {
             AuthenticationException ex = (AuthenticationException) session
