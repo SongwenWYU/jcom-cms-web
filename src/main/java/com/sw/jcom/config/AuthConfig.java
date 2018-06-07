@@ -1,5 +1,6 @@
 package com.sw.jcom.config;
 
+import com.sw.jcom.common.Contents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,7 +90,7 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
                             UserDetails user = (UserDetails) principal;
                             logger.info(">>>>>>>>>>登录用户:{}<<<<<<<<<<", user.getUsername());
                             //维护在session中
-                            arg0.getSession().setAttribute("userDetail", user);
+                            arg0.getSession().setAttribute(Contents.SESSION_USERDETAIL, user);
                             arg1.sendRedirect("/");
                         }
 

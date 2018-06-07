@@ -1,5 +1,6 @@
 package com.sw.jcom.controller;
 
+import com.sw.jcom.common.Contents;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.WebAttributes;
@@ -29,13 +30,13 @@ public class LoginController {
     public String login(HttpServletRequest request, Model model, @RequestParam(value = "error", required = false) String error) {
         HttpSession session = request.getSession(false);
         //TODO 判断用户是否登陆，未登陆进行登陆，已经登陆直接跳转
-
-        if (error != null) {
-            if (session != null) {
-                AuthenticationException ex = (AuthenticationException) session
-                        .getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
-                model.addAttribute("error", ex != null ? ex.getMessage() : "none");
-            }
+        if(session != null && session.getAttribute(Contents.SESSION_USERDETAIL) != null){
+            return "/dashboard";
+        }
+        if (error != null && session != null) {
+            AuthenticationException ex = (AuthenticationException) session
+                    .getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+            model.addAttribute("error", ex != null ? ex.getMessage() : "none");
         }
 
         model.addAttribute("title", name);
