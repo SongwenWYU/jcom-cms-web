@@ -16,9 +16,15 @@ public class IndexController {
     private String systemName;
 
     @RequestMapping("/")
-    String index(Model model) throws Exception {
+    String indexHome(Model model) throws Exception {
         model.addAttribute("title", "Mango - JCOM");
         return "index";
+    }
+
+    @RequestMapping("/index")
+    String indexPage(Model model) throws Exception {
+        model.addAttribute("title", "Mango - JCOM");
+        return "common/index";
     }
 
 }
