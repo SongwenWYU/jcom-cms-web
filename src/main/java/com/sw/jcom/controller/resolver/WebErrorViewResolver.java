@@ -15,9 +15,7 @@ public class WebErrorViewResolver implements ErrorViewResolver {
         ModelAndView mv = new ModelAndView();
         mv.addObject("title", status.value());
         mv.addObject("errorCode", status.value());
-        if(status.is5xxServerError()){
-            mv.addObject("errorMsg", status.getReasonPhrase());
-        }else if(status.is4xxClientError()){
+        if(status.is5xxServerError() || status.is4xxClientError()){
             mv.addObject("errorMsg", status.getReasonPhrase());
         }
         mv.setViewName("/error/error");

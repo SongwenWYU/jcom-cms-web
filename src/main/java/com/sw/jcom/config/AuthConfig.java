@@ -76,7 +76,7 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/orders/**").hasAnyRole("USER", "ADMIN")
                 //管理员权限
                 .antMatchers("/users/**").hasRole("ADMIN")
-                .antMatchers("/dashboard").authenticated()
+                .antMatchers("/dashboard", "/index").authenticated()
                 .and()
                 .formLogin()
                 //跳转登录页面的控制器，该地址要保证和表单提交的地址一致！
