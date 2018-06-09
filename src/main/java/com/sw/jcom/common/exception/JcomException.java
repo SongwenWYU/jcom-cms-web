@@ -7,8 +7,10 @@ package com.sw.jcom.common.exception;
  */
 public class JcomException extends Exception {
 
+    private ExceptionEnum exceptionEnum;
 
-    public JcomException(String message) {
-        super(message);
+    public JcomException(ExceptionEnum exceptionEnum) {
+        super(exceptionEnum.toString());
+        this.exceptionEnum = exceptionEnum;
     }
 }
