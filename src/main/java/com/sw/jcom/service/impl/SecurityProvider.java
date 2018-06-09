@@ -58,7 +58,7 @@ public class SecurityProvider implements AuthenticationProvider {
         String password = userDetails.getPassword();
         //与authentication里面的credentials相比较
         if (!password.equals(token.getCredentials())) {
-            throw new BadCredentialsException("Invalid username/password");
+            throw new BadCredentialsException("用户名/密码不正确");
         }
         //授权
         return new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
