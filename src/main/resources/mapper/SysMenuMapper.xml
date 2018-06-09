@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sw.jcom.domain.mapper.SysMenuMapper">
+    <resultMap id="BaseResultMap" type="com.sw.jcom.domain.model.SysMenu">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="menu_type" jdbcType="VARCHAR" property="menuType"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="manu_name" jdbcType="VARCHAR" property="manuName"/>
+        <result column="menu_order" jdbcType="INTEGER" property="menuOrder"/>
+        <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
+        <result column="is_blank" jdbcType="TINYINT" property="isBlank"/>
+        <result column="css_icon" jdbcType="VARCHAR" property="cssIcon"/>
+        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>
+        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>
+        <result column="gmt_user_id" jdbcType="INTEGER" property="gmtUserId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, menu_type, url, manu_name, menu_order, parent_id, is_blank, css_icon, gmt_create, 
+    gmt_modified, gmt_user_id
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_menu
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectByIds" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_menu
+        where id in
+        <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        group by id order by menu_order
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_menu
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.sw.jcom.domain.model.SysMenu">
+    insert into sys_menu (id, menu_type, url, 
+      manu_name, menu_order, parent_id, 
+      is_blank, css_icon, gmt_create, 
+      gmt_modified, gmt_user_id)
+    values (#{id,jdbcType=INTEGER}, #{menuType,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{manuName,jdbcType=VARCHAR}, #{menuOrder,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, 
+      #{isBlank,jdbcType=TINYINT}, #{cssIcon,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{gmtUserId,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.sw.jcom.domain.model.SysMenu">
+        insert into sys_menu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="menuType != null">
+                menu_type,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="manuName != null">
+                manu_name,
+            </if>
+            <if test="menuOrder != null">
+                menu_order,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="isBlank != null">
+                is_blank,
+            </if>
+            <if test="cssIcon != null">
+                css_icon,
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create,
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified,
+            </if>
+            <if test="gmtUserId != null">
+                gmt_user_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="menuType != null">
+                #{menuType,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="manuName != null">
+                #{manuName,jdbcType=VARCHAR},
+            </if>
+            <if test="menuOrder != null">
+                #{menuOrder,jdbcType=INTEGER},
+            </if>
+            <if test="parentId != null">
+                #{parentId,jdbcType=INTEGER},
+            </if>
+            <if test="isBlank != null">
+                #{isBlank,jdbcType=TINYINT},
+            </if>
+            <if test="cssIcon != null">
+                #{cssIcon,jdbcType=VARCHAR},
+            </if>
+            <if test="gmtCreate != null">
+                #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gmtModified != null">
+                #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gmtUserId != null">
+                #{gmtUserId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.sw.jcom.domain.model.SysMenu">
+        update sys_menu
+        <set>
+            <if test="menuType != null">
+                menu_type = #{menuType,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="manuName != null">
+                manu_name = #{manuName,jdbcType=VARCHAR},
+            </if>
+            <if test="menuOrder != null">
+                menu_order = #{menuOrder,jdbcType=INTEGER},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId,jdbcType=INTEGER},
+            </if>
+            <if test="isBlank != null">
+                is_blank = #{isBlank,jdbcType=TINYINT},
+            </if>
+            <if test="cssIcon != null">
+                css_icon = #{cssIcon,jdbcType=VARCHAR},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gmtUserId != null">
+                gmt_user_id = #{gmtUserId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.sw.jcom.domain.model.SysMenu">
+    update sys_menu
+    set menu_type = #{menuType,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      manu_name = #{manuName,jdbcType=VARCHAR},
+      menu_order = #{menuOrder,jdbcType=INTEGER},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      is_blank = #{isBlank,jdbcType=TINYINT},
+      css_icon = #{cssIcon,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      gmt_user_id = #{gmtUserId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
