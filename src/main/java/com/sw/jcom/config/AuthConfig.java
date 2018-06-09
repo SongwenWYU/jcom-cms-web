@@ -117,7 +117,8 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/")
-                .permitAll();
+                .permitAll()
+                .and().headers().frameOptions().sameOrigin();
 //                .and()
 //                .rememberMe()
 //                .tokenValiditySeconds(1209600)

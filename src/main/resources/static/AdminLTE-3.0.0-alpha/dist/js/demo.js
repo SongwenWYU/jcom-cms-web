@@ -196,4 +196,19 @@
 
         return $block
     }
+    $(".menu-item").click(function () {
+        var menuItem = $(".menu-item.active");
+        var obj = $(this);
+        if(obj === menuItem){
+            return;
+        }
+        menuItem.toggleClass("active");
+        obj.toggleClass("active");
+
+        var url = obj.attr("data-url");
+
+        $(".page-content").attr("url", "/dashboard");
+
+    })
 })(jQuery)
+

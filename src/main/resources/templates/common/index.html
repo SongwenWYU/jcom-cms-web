@@ -7,8 +7,18 @@
     <script th:replace="/common/bootstrap"></script>
     <script th:replace="/common/adminlte"></script>
 
+    <style>
+        .inner-container {
+            /*overflow-x: hidden;*/
+            overflow-y: hidden;
+        }
+
+        .inner-container::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini inner-container">
 <div class="wrapper">
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
@@ -143,7 +153,24 @@
                     data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
-
+                    <li class="nav-item">
+                        <a href="#" data-url="/" class="nav-link menu-item">
+                            <i class="nav-icon fa fa-th"></i>
+                            <p>
+                                Widgets
+                                <span class="right badge badge-danger">New</span>
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" data-url="/" class="nav-link menu-item">
+                            <i class="nav-icon fa fa-th"></i>
+                            <p>
+                                Widgets
+                                <span class="right badge badge-danger">New</span>
+                            </p>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-circle-o text-info"></i>
@@ -158,36 +185,31 @@
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <!--<div class="content-header">-->
-            <!--<div class="container-fluid">-->
-                <!--<div class="row mb-2">-->
-                    <!--<div class="col-sm-6">-->
-                        <!--<h1 class="m-0 text-dark">Dashboard v3</h1>-->
-                    <!--</div>&lt;!&ndash; /.col &ndash;&gt;-->
-                    <!--<div class="col-sm-6">-->
-                        <!--<ol class="breadcrumb float-sm-right">-->
-                            <!--<li class="breadcrumb-item"><a href="#">Home</a></li>-->
-                            <!--<li class="breadcrumb-item active">Dashboard v3</li>-->
-                        <!--</ol>-->
-                    <!--</div>&lt;!&ndash; /.col &ndash;&gt;-->
-                <!--</div>&lt;!&ndash; /.row &ndash;&gt;-->
-            <!--</div>&lt;!&ndash; /.container-fluid &ndash;&gt;-->
-        <!--</div>-->
-        <!-- /.content-header -->
+    <!--<div class="content-wrapper">-->
+    <!-- Content Header (Page header) -->
+    <!--<div class="content-header">-->
+    <!--<div class="container-fluid">-->
+    <!--<div class="row mb-2">-->
+    <!--<div class="col-sm-6">-->
+    <!--<h1 class="m-0 text-dark">Dashboard v3</h1>-->
+    <!--</div>&lt;!&ndash; /.col &ndash;&gt;-->
+    <!--<div class="col-sm-6">-->
+    <!--<ol class="breadcrumb float-sm-right">-->
+    <!--<li class="breadcrumb-item"><a href="#">Home</a></li>-->
+    <!--<li class="breadcrumb-item active">Dashboard v3</li>-->
+    <!--</ol>-->
+    <!--</div>&lt;!&ndash; /.col &ndash;&gt;-->
+    <!--</div>&lt;!&ndash; /.row &ndash;&gt;-->
+    <!--</div>&lt;!&ndash; /.container-fluid &ndash;&gt;-->
+    <!--</div>-->
+    <!-- /.content-header -->
 
-        <!-- Main content -->
-        <div class="content">
-            <div class="container-fluid">
-                <div class="row h-100">
-                    <iframe id="iframePage" frameborder="0" height="100%" width="100%">
-
-                    </iframe>
-                </div>
-            </div>
-        </div>
+    <!-- Main content -->
+    <div class="content">
+        <iframe class="content-wrapper embed-responsive page-content" frameborder="0" style="z-index: -11"
+                src="/"></iframe>
     </div>
+    <!--</div>-->
 
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
@@ -195,12 +217,12 @@
     </aside>
     <!-- Main Footer -->
     <footer class="main-footer">
-        <!-- To the right -->
-        <div class="float-right d-none d-sm-block-down">
-            Anything you want
-        </div>
-        <!-- Default to the left -->
-        <strong>Copyright &copy; 2018 <a href="https://github.com/SongwenWYU/jcom-cms-web">songwen</a>.</strong> All rights reserved.
+        <!--<div class="float-right d-none d-sm-block">-->
+        <!--<b>Version</b> <span th:text="${version}"></span>-->
+        <!--</div>-->
+        <strong>Copyright &copy; 2014-2018 <a href="https://github.com/SongwenWYU/jcom-cms-web">songwen</a>.</strong>
+        All rights
+        reserved.
     </footer>
 
 </div>
