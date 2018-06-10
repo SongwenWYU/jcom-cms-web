@@ -1,5 +1,7 @@
 package com.sw.jcom.service.impl;
 
+import com.sw.jcom.common.exception.ExceptionEnum;
+import com.sw.jcom.common.exception.JcomException;
 import com.sw.jcom.domain.mapper.SysUserMapper;
 import com.sw.jcom.domain.model.SysUser;
 import com.sw.jcom.service.SysUserService;
@@ -49,5 +51,14 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public int updateByPrimaryKey(SysUser record) {
         return sysUserMapper.updateByPrimaryKey(record);
+    }
+
+    @Override
+    public String getNicknameByUsername(String username) throws JcomException {
+        SysUser sysUser = sysUserMapper.selectByUsername(username);
+        if(sysUser == null){
+            throw new JcomException(ExceptionEnum.NO_USER);
+        }
+        return sysUser.getNickname();
     }
 }

@@ -20,6 +20,8 @@ public interface SysMenuRoleMapper {
 
     List<SysMenuRole> selectByRoleId(Integer roleId);
 
+    List<SysMenuRole> selectByRoleIds(Integer[] roleIds);
+
     int updateByPrimaryKeySelective(SysMenuRole record);
 
     int updateByPrimaryKey(SysMenuRole record);

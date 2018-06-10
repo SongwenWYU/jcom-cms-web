@@ -1,5 +1,6 @@
 package com.sw.jcom.service;
 
+import com.sw.jcom.common.exception.JcomException;
 import com.sw.jcom.domain.model.SysUser;
 
 /**
@@ -21,4 +22,11 @@ public interface SysUserService {
     int updateByPrimaryKeySelective(SysUser record);
 
     int updateByPrimaryKey(SysUser record);
+
+    /**
+     * 根据用户名查询昵称
+     * @param username
+     * @return
+     */
+    String getNicknameByUsername(String username) throws JcomException;
 }
