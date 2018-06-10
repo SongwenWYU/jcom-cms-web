@@ -9,7 +9,7 @@ public enum  ExceptionEnum {
     /**
      * 用户未登录
      */
-    NO_LOGIN(10000, "用户未登录");
+    NO_LOGIN(10000, "用户未登录"), NO_USER(10001, "未查询到用户");
 
     private int code;
     private String msg;
