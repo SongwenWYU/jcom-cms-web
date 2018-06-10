@@ -57,7 +57,7 @@ public class SysMenu implements Serializable {
     /**
      * 是否新标签页打开
      */
-    private Byte isBlank;
+    private Byte blank;
 
     /**
      * 图标

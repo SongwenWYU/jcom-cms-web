@@ -8,7 +8,7 @@
         <result column="manu_name" jdbcType="VARCHAR" property="manuName"/>
         <result column="menu_order" jdbcType="INTEGER" property="menuOrder"/>
         <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
-        <result column="is_blank" jdbcType="TINYINT" property="isBlank"/>
+        <result column="is_blank" jdbcType="TINYINT" property="blank"/>
         <result column="css_icon" jdbcType="VARCHAR" property="cssIcon"/>
         <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>
         <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>
@@ -32,7 +32,7 @@
         <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
             #{item}
         </foreach>
-        group by id order by menu_order
+        order by menu_order
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from sys_menu
@@ -45,7 +45,7 @@
       gmt_modified, gmt_user_id)
     values (#{id,jdbcType=INTEGER}, #{menuType,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
       #{manuName,jdbcType=VARCHAR}, #{menuOrder,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, 
-      #{isBlank,jdbcType=TINYINT}, #{cssIcon,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{blank,jdbcType=TINYINT}, #{cssIcon,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP},
       #{gmtModified,jdbcType=TIMESTAMP}, #{gmtUserId,jdbcType=INTEGER})
   </insert>
     <insert id="insertSelective" parameterType="com.sw.jcom.domain.model.SysMenu">
@@ -69,7 +69,7 @@
             <if test="parentId != null">
                 parent_id,
             </if>
-            <if test="isBlank != null">
+            <if test="blank != null">
                 is_blank,
             </if>
             <if test="cssIcon != null">
@@ -104,8 +104,8 @@
             <if test="parentId != null">
                 #{parentId,jdbcType=INTEGER},
             </if>
-            <if test="isBlank != null">
-                #{isBlank,jdbcType=TINYINT},
+            <if test="blank != null">
+                #{blank,jdbcType=TINYINT},
             </if>
             <if test="cssIcon != null">
                 #{cssIcon,jdbcType=VARCHAR},
@@ -139,8 +139,8 @@
             <if test="parentId != null">
                 parent_id = #{parentId,jdbcType=INTEGER},
             </if>
-            <if test="isBlank != null">
-                is_blank = #{isBlank,jdbcType=TINYINT},
+            <if test="blank != null">
+                is_blank = #{blank,jdbcType=TINYINT},
             </if>
             <if test="cssIcon != null">
                 css_icon = #{cssIcon,jdbcType=VARCHAR},
@@ -164,7 +164,7 @@
       manu_name = #{manuName,jdbcType=VARCHAR},
       menu_order = #{menuOrder,jdbcType=INTEGER},
       parent_id = #{parentId,jdbcType=INTEGER},
-      is_blank = #{isBlank,jdbcType=TINYINT},
+      is_blank = #{blank,jdbcType=TINYINT},
       css_icon = #{cssIcon,jdbcType=VARCHAR},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
