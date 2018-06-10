@@ -4,12 +4,14 @@ import com.sw.jcom.domain.mapper.SysUserMapper;
 import com.sw.jcom.domain.model.SysUser;
 import com.sw.jcom.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @author songwen
  * gmail: zero.hero.he@gmail.com
  * Created on 2018/6/10
  */
+@Service
 public class SysUserServiceImpl implements SysUserService {
     @Autowired
     private SysUserMapper sysUserMapper;
