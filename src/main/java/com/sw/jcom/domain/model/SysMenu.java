@@ -5,14 +5,12 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.io.Serializable;
-import java.util.Date;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * sys_menu
@@ -25,6 +23,16 @@ import javax.validation.constraints.NotEmpty;
 @ToString
 @EqualsAndHashCode
 public class SysMenu implements Serializable {
+
+    /**
+     * 页面
+     */
+    public final static String TYPE_PAGE = "TYPE_PAGE";
+    /**
+     * 下拉
+     */
+    public final static String TYPE_DROPDOWN  = "TYPE_DROPDOWN";
+
     @Id
     @GeneratedValue
     private Integer id;

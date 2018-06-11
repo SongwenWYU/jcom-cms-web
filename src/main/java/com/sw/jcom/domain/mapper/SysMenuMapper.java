@@ -20,6 +20,8 @@ public interface SysMenuMapper {
 
     List<SysMenu> selectByIds(Integer[] ids);
 
+    List<SysMenu> selectAll();
+
     int updateByPrimaryKeySelective(SysMenu record);
 
     int updateByPrimaryKey(SysMenu record);
