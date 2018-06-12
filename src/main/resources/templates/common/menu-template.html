@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body th:fragment="menu-template (sysMenuMaps)" th:each="sysMenuMap : ${sysMenuMaps}">
+
+<li th:if="not ${sysMenuMap.parent}" class="nav-item">
+
+    <a th:data-url="${sysMenuMap.sysMenu.url}" th:class="${sysMenuMap.sysMenu.blank} ? 'nav-link' :'nav-link menu-item'" th:target="${sysMenuMap.sysMenu.blank} ? '_blank' : ''"
+       th:href="${sysMenuMap.sysMenu.blank} ? ${sysMenuMap.sysMenu.url} : '#'">
+        <i th:class="'nav-icon fa ' + ${sysMenuMap.sysMenu.cssIcon}"></i>
+        <p th:text="${sysMenuMap.sysMenu.manuName}">
+            Name
+        </p>
+    </a>
+</li>
+<li th:if="${sysMenuMap.parent}" class="nav-item has-treeview menu-open">
+    <a href="#" class="nav-link">
+        <i th:class="'nav-icon fa ' + ${sysMenuMap.sysMenu.cssIcon}"></i>
+        <p>
+            <span th:text="${sysMenuMap.sysMenu.manuName}"></span>
+            <i class="right fa fa-angle-left"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        <!--递归遍历-->
+        <li th:replace="/common/menu-template :: menu-template (${sysMenuMap.sysMenuMaps})">
+
+        </li>
+    </ul>
+</li>
+
+</body>
+</html>

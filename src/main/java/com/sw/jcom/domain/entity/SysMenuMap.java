@@ -30,7 +30,7 @@ public class SysMenuMap {
     public SysMenuMap(SysMenu sysMenu){
         this.sysMenu = sysMenu;
         this.order = sysMenu.getMenuOrder();
-        this.parent = (sysMenu.getParentId() == null || sysMenu.getParentId() == 0);
+        this.parent = false;
     }
 
     public final static Comparator<SysMenuMap> MENU_MAP_COMPARATOR = new Comparator<SysMenuMap>() {

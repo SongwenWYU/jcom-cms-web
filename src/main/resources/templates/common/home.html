@@ -156,20 +156,23 @@
                     data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
-                    <li class="nav-item">
-                        <a href="#" data-url="/" class="nav-link menu-item">
-                            <i class="nav-icon fa fa-th"></i>
-                            <p>
-                                Widgets
-                                <span class="right badge badge-danger">New</span>
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fa fa-circle-o text-info"></i>
-                            <p>Informational</p>
-                        </a>
+                    <!--<li class="nav-item">-->
+                        <!--<a href="#" data-url="/dashboard" class="nav-link menu-item active">-->
+                            <!--<i class="nav-icon fa fa-dashboard"></i>-->
+                            <!--<p>-->
+                                <!--Dashboard-->
+                                <!--&lt;!&ndash;<span class="right badge badge-danger">New</span>&ndash;&gt;-->
+                            <!--</p>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li class="nav-item">-->
+                        <!--<a href="#" class="nav-link">-->
+                            <!--<i class="nav-icon fa fa-circle-o text-info"></i>-->
+                            <!--<p>Informational</p>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <li th:replace="/common/menu-template :: menu-template (${menu})">
+
                     </li>
                 </ul>
             </nav>
@@ -201,7 +204,7 @@
     <!-- Main content -->
     <div class="content">
         <iframe class="content-wrapper embed-responsive page-content" frameborder="0" style="z-index: -11"
-                src="/"></iframe>
+                th:src="@{/dashboard}"></iframe>
     </div>
     <!--</div>-->
 
@@ -220,6 +223,6 @@
     </footer>
 
 </div>
-<script th:src="@{/AdminLTE-3.0.0-alpha/dist/js/demo.js}"></script>
+<script th:src="@{/page/index/js/home.js}"></script>
 </body>
 </html>

@@ -3,6 +3,7 @@ package com.sw.jcom.controller;
 import com.sw.jcom.common.Contents;
 import com.sw.jcom.common.exception.ExceptionEnum;
 import com.sw.jcom.common.exception.JcomException;
+import com.sw.jcom.domain.entity.SysMenuMap;
 import com.sw.jcom.domain.mapper.SysRoleMapper;
 import com.sw.jcom.domain.mapper.SysRoleUserMapper;
 import com.sw.jcom.domain.mapper.SysUserMapper;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.TreeSet;
 
 /**
  * @author songwen
@@ -71,7 +73,8 @@ public class IndexController {
             return "common/home";
         }
         List<SysMenu> sysMenuList = sysMenuService.selectByRoleUsers(sysRoleUserList);
-        model.addAttribute("menu", sysMenuService.menuFormat(sysMenuList));
+        TreeSet<SysMenuMap> sysMenuMapList = sysMenuService.menuFormat(sysMenuList);
+        model.addAttribute("menu", sysMenuMapList);
 
         return "common/home";
     }
