@@ -57,7 +57,7 @@ public class IndexController {
         return "index";
     }
 
-    @RequestMapping("/index")
+    @RequestMapping("/home")
     String indexPage(Model model, HttpSession session) throws JcomException {
         model.addAttribute("title", systemName);
         UserDetails userDetails = (UserDetails) session.getAttribute(Contents.SESSION_USERDETAIL);
@@ -68,12 +68,12 @@ public class IndexController {
         //菜单
         List<SysRoleUser> sysRoleUserList = sysRoleUserService.selectByUserId(user.getId());
         if(sysRoleUserList == null || sysRoleUserList.size() == 0){
-            return "common/index";
+            return "common/home";
         }
         List<SysMenu> sysMenuList = sysMenuService.selectByRoleUsers(sysRoleUserList);
         model.addAttribute("menu", sysMenuService.menuFormat(sysMenuList));
 
-        return "common/index";
+        return "common/home";
     }
 
 }
