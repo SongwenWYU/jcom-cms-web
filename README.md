@@ -42,14 +42,17 @@ JCOM - 商品管理系统
 To Do List
 ----------
 
-* index page
+* 角色管理
+* 用户管理
+* 菜单管理
+* ~~index page~~
 * Add a Servlet, Filter, or Listener to an Application
-* 添加登录逻辑
-* 添加主题框架
+* ~~添加登录逻辑~~
+* ~~添加主题框架~~
 * 代码质量分析
-* 登陆页，登陆密码加密
-* 用户密码加密
-* 登录用户状态存储方式（session？）
+* ~~登陆页，登陆密码加密~~
+* ~~用户密码加密~~
+* ~~登录用户状态存储方式（session？）~~
 * ~~mysql+jpa+mybatis~~
 * ~~Error Handling~~
 * ~~Template Engines（Thymeleaf）~~
@@ -58,6 +61,7 @@ To Do List
 * ~~Add GPL2.0 license~~
 * ~~Format README.md~~
 * ~~添加自动测试、测试覆盖率~~
+* context-path 问题
 
 
 
