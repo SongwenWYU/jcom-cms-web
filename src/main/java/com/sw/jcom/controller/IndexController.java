@@ -6,7 +6,14 @@ import com.sw.jcom.common.exception.JcomException;
 import com.sw.jcom.domain.mapper.SysRoleMapper;
 import com.sw.jcom.domain.mapper.SysRoleUserMapper;
 import com.sw.jcom.domain.mapper.SysUserMapper;
+import com.sw.jcom.domain.model.SysMenu;
+import com.sw.jcom.domain.model.SysRole;
+import com.sw.jcom.domain.model.SysRoleUser;
 import com.sw.jcom.domain.model.SysUser;
+import com.sw.jcom.service.SysMenuService;
+import com.sw.jcom.service.SysRoleService;
+import com.sw.jcom.service.SysRoleUserService;
+import com.sw.jcom.service.SysUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +24,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
+/**
+ * @author songwen
+ * gmail: zero.hero.he@gmail.com
+ * Created on 2018/6/5
+ */
 @Controller
 public class IndexController {
 
@@ -27,13 +40,16 @@ public class IndexController {
     private String systemName;
 
     @Autowired
-    private SysUserMapper userMapper;
+    private SysUserService sysUserService;
 
     @Autowired
-    private SysRoleMapper roleMapper;
+    private SysRoleService sysRoleService;
 
     @Autowired
-    private SysRoleUserMapper roleUserMapper;
+    private SysRoleUserService sysRoleUserService;
+
+    @Autowired
+    private SysMenuService sysMenuService;
 
     @RequestMapping("/")
     String indexHome(Model model) throws Exception {
@@ -42,14 +58,20 @@ public class IndexController {
     }
 
     @RequestMapping("/index")
-    String indexPage(Model model, HttpSession session) throws Exception {
+    String indexPage(Model model, HttpSession session) throws JcomException {
         model.addAttribute("title", systemName);
         UserDetails userDetails = (UserDetails) session.getAttribute(Contents.SESSION_USERDETAIL);
         String username = userDetails.getUsername();
-        SysUser sysUser = userMapper.selectByUsername(username);
-        model.addAttribute("username", sysUser.getNickname());
+        SysUser user = sysUserService.selectByUsername(username);
+        model.addAttribute("username", user.getNickname());
 
         //菜单
+        List<SysRoleUser> sysRoleUserList = sysRoleUserService.selectByUserId(user.getId());
+        if(sysRoleUserList == null || sysRoleUserList.size() == 0){
+            return "common/index";
+        }
+        List<SysMenu> sysMenuList = sysMenuService.selectByRoleUsers(sysRoleUserList);
+        model.addAttribute("menu", sysMenuService.menuFormat(sysMenuList));
 
         return "common/index";
     }

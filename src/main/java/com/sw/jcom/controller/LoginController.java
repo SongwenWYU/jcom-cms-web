@@ -4,7 +4,6 @@ import com.sw.jcom.common.Contents;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.WebAttributes;
-import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +28,6 @@ public class LoginController {
     @GetMapping("/login")
     public String login(HttpServletRequest request, Model model, @RequestParam(value = "error", required = false) String error) {
         HttpSession session = request.getSession(false);
-        //TODO 判断用户是否登陆，未登陆进行登陆，已经登陆直接跳转
         if(session != null && session.getAttribute(Contents.SESSION_USERDETAIL) != null){
             return "redirect:/index";
         }
