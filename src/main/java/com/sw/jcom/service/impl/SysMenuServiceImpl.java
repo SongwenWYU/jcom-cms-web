@@ -111,6 +111,7 @@ public class SysMenuServiceImpl implements SysMenuService {
                 continue;
             }
             SysMenuMap parentMenuMap = sysMenuMapMap.get(parentId);
+            parentMenuMap.setParent(true);
             parentMenuMap.getSysMenuMaps().add(sysMenuMap);
         }
 
