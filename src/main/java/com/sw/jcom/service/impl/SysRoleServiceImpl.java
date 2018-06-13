@@ -6,6 +6,8 @@ import com.sw.jcom.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author songwen
  * gmail: zero.hero.he@gmail.com
@@ -35,6 +37,11 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public SysRole selectByPrimaryKey(Integer id) {
         return sysRoleMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public List<SysRole> selectAll() {
+        return sysRoleMapper.selectAll();
     }
 
     @Override

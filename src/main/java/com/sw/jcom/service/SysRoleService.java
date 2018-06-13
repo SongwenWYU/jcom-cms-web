@@ -2,6 +2,8 @@ package com.sw.jcom.service;
 
 import com.sw.jcom.domain.model.SysRole;
 
+import java.util.List;
+
 /**
  * @author songwen
  * gmail: zero.hero.he@gmail.com
@@ -15,6 +17,8 @@ public interface SysRoleService {
     int insertSelective(SysRole record);
 
     SysRole selectByPrimaryKey(Integer id);
+
+    List<SysRole> selectAll();
 
     int updateByPrimaryKeySelective(SysRole record);
 
