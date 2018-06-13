@@ -73,9 +73,9 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 //用户权限
-                .antMatchers("/orders/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/u/**").hasAnyRole("USER", "ADMIN")
                 //管理员权限
-                .antMatchers("/users/**").hasRole("ADMIN")
+                .antMatchers("/au/**").hasRole("ADMIN")
                 .antMatchers("/dashboard", "/home").authenticated()
                 .and()
                 .formLogin()
