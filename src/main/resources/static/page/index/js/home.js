@@ -196,8 +196,9 @@
         if(obj === menuItem){
             return;
         }
-        menuItem.toggleClass("active");
+        $(".active").toggleClass("active");
         obj.toggleClass("active");
+        obj.parent().parent().prev().toggleClass("active");
 
         var url = obj.attr("data-url");
 
