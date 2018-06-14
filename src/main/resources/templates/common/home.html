@@ -202,9 +202,19 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <div class="content">
-        <iframe class="content-wrapper embed-responsive page-content" frameborder="0" style="z-index: -11"
-                th:src="@{/dashboard}"></iframe>
+    <!--<div class="content">-->
+        <!--<iframe class="content-wrapper embed-responsive page-content" frameborder="0" style="z-index: -11"-->
+                <!--th:src="@{/dashboard}"></iframe>-->
+    <!--</div>-->
+    <div class="content-wrapper" id="mainContent">
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <iframe class="embed-responsive page-content" frameborder="0" style="min-height: 100%"
+                            th:src="@{/}"></iframe>
+                </div>
+            </div>
+        </div>
     </div>
     <!--</div>-->
 

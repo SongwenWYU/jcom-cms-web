@@ -207,3 +207,15 @@
     })
 })(jQuery)
 
+$(window).ready(function(){
+
+    setTimeout(function () {
+        // iframe高度
+        var mainContentHeight = $("#mainContent").height();
+        // var mainContentHeight = $("#mainContent").css("min-height");
+        console.log(mainContentHeight)
+        $(".page-content").height(mainContentHeight);
+        }, 500);
+
+});
+
