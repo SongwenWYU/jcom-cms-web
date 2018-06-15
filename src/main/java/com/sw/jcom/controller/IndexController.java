@@ -1,14 +1,9 @@
 package com.sw.jcom.controller;
 
 import com.sw.jcom.common.Contents;
-import com.sw.jcom.common.exception.ExceptionEnum;
 import com.sw.jcom.common.exception.JcomException;
 import com.sw.jcom.domain.entity.SysMenuMap;
-import com.sw.jcom.domain.mapper.SysRoleMapper;
-import com.sw.jcom.domain.mapper.SysRoleUserMapper;
-import com.sw.jcom.domain.mapper.SysUserMapper;
 import com.sw.jcom.domain.model.SysMenu;
-import com.sw.jcom.domain.model.SysRole;
 import com.sw.jcom.domain.model.SysRoleUser;
 import com.sw.jcom.domain.model.SysUser;
 import com.sw.jcom.service.SysMenuService;
