@@ -1,5 +1,7 @@
 package com.sw.jcom.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.sw.jcom.common.exception.ExceptionEnum;
 import com.sw.jcom.common.exception.JcomException;
 import com.sw.jcom.domain.mapper.SysUserMapper;
@@ -7,6 +9,8 @@ import com.sw.jcom.domain.model.SysUser;
 import com.sw.jcom.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author songwen
@@ -41,6 +45,14 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public SysUser selectByUsername(String username) {
         return sysUserMapper.selectByUsername(username);
+    }
+
+    @Override
+    public PageInfo<SysUser> select(String username, String nickName, int currentPage, int pageSize) {
+        PageHelper.startPage(currentPage, pageSize);
+        List<SysUser> sysUserList = sysUserMapper.select(username, nickName);
+        PageInfo<SysUser> pageInfo = new PageInfo<>(sysUserList);
+        return pageInfo;
     }
 
     @Override

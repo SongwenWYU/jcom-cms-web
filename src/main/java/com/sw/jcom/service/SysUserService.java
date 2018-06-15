@@ -1,7 +1,10 @@
 package com.sw.jcom.service;
 
+import com.github.pagehelper.PageInfo;
 import com.sw.jcom.common.exception.JcomException;
 import com.sw.jcom.domain.model.SysUser;
+
+import java.util.List;
 
 /**
  * @author songwen
@@ -18,6 +21,8 @@ public interface SysUserService {
     SysUser selectByPrimaryKey(Integer id);
 
     SysUser selectByUsername(String username);
+
+    PageInfo<SysUser> select(String username, String nickName, int currentPage, int pageSize);
 
     int updateByPrimaryKeySelective(SysUser record);
 

@@ -1,12 +1,9 @@
 package com.sw.jcom.domain.mapper;
 
 import com.sw.jcom.domain.model.SysUser;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface SysUserMapper {
     int deleteByPrimaryKey(Integer id);
@@ -16,6 +13,10 @@ public interface SysUserMapper {
     int insertSelective(SysUser record);
 
     SysUser selectByPrimaryKey(Integer id);
+
+    List<SysUser> selectAll();
+
+    List<SysUser> select(@Param("username")String username, @Param("nickname")String nickname);
 
     SysUser selectByUsername(String username);
 
