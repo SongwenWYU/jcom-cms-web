@@ -22,7 +22,7 @@
   </sql>
 
     <sql id="User_Column_List">
-    id, username, nickname, email
+    username, nickname, email
   </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">

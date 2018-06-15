@@ -24,7 +24,7 @@ public interface SysUserService {
 
     PageInfo<SysUser> select(String username, String nickName, int currentPage, int pageSize);
 
-    PageInfo<SysUser> selectAdmin(String username,String nickname, int currentPage, int pageSize);
+    PageInfo<SysUser> selectAdmin(String username, String nickname, int currentPage, int pageSize);
 
     /**
      * 管理员查询使用
