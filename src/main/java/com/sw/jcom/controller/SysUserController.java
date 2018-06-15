@@ -91,7 +91,7 @@ public class SysUserController {
      */
     @RequestMapping("/u/user/update")
     @ResponseBody
-    public ResultEntity modifyPwd(HttpSession session, String nickname, String email){
+    public ResultEntity modify(HttpSession session, String nickname, String email){
         if(StringUtils.isBlank(nickname) || StringUtils.isBlank(email)){
             return new ResultEntity(ResultEntity.Code.ERROR_EMPTY);
         }
@@ -104,6 +104,27 @@ public class SysUserController {
         updateUser.setId(user.getId());
         updateUser.setNickname(nickname);
         updateUser.setEmail(email);
+        int updateCount = sysUserService.updateByPrimaryKeySelective(updateUser);
+        if(updateCount == 1){
+            return new ResultEntity(ResultEntity.Code.OK);
+        }
+        return new ResultEntity(ResultEntity.Code.ERROR_UPDATE);
+    }
+
+    @RequestMapping("/au/user/update")
+    @ResponseBody
+    public ResultEntity modify(HttpSession session, String state){
+        if(StringUtils.isBlank(state)){
+            return new ResultEntity(ResultEntity.Code.ERROR_EMPTY);
+        }
+        UserDetails userDetails = (UserDetails) session.getAttribute(Contents.SESSION_USERDETAIL);
+        String username = userDetails.getUsername();
+
+        SysUser user = sysUserService.selectByUsername(username);
+
+        SysUser updateUser = new SysUser();
+        updateUser.setId(user.getId());
+        updateUser.setState(state);
         int updateCount = sysUserService.updateByPrimaryKeySelective(updateUser);
         if(updateCount == 1){
             return new ResultEntity(ResultEntity.Code.OK);
