@@ -49,19 +49,16 @@ public class SysUser implements Serializable {
     /**
      * 用户名
      */
-    @NotEmpty
     private String username;
 
     /**
      * 昵称
      */
-    @NotEmpty
     private String nickname;
 
     /**
      * 密码
      */
-    @NotEmpty
     private String password;
 
     /**
@@ -77,7 +74,6 @@ public class SysUser implements Serializable {
     /**
      * 创建时间
      */
-    @NotEmpty
     private Date gmtCreate;
 
     /**

@@ -24,6 +24,22 @@ public interface SysUserService {
 
     PageInfo<SysUser> select(String username, String nickName, int currentPage, int pageSize);
 
+    PageInfo<SysUser> selectAdmin(String username,String nickname, int currentPage, int pageSize);
+
+    /**
+     * 管理员查询使用
+     * @param id
+     * @return
+     */
+    SysUser selectAdminById(Integer id);
+
+    /**
+     * 普通用户查询个人信息使用
+     * @param id
+     * @return
+     */
+    SysUser selectUserById(Integer id);
+
     int updateByPrimaryKeySelective(SysUser record);
 
     int updateByPrimaryKey(SysUser record);

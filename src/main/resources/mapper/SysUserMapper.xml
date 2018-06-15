@@ -12,9 +12,19 @@
         <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>
         <result column="gmt_user_id" jdbcType="INTEGER" property="gmtUserId"/>
     </resultMap>
+
     <sql id="Base_Column_List">
     id, username, nickname, password, state, email, gmt_create, gmt_modified, gmt_user_id
   </sql>
+
+    <sql id="Admin_Column_List">
+    id, username, nickname, state, email, gmt_create, gmt_modified, gmt_user_id
+  </sql>
+
+    <sql id="User_Column_List">
+    id, username, nickname, email
+  </sql>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -39,6 +49,33 @@
         <if test="nickname != null">
             and nickname LIKE CONCAT('%',#{nickname,jdbcType=VARCHAR},'%' )
         </if>
+    </select>
+
+    <select id="selectAdmin" resultMap="BaseResultMap">
+        select
+        <include refid="Admin_Column_List"/>
+        from sys_user
+        where 1=1
+        <if test="username != null">
+            and username LIKE CONCAT('%',#{username,jdbcType=VARCHAR},'%' )
+        </if>
+        <if test="nickname != null">
+            and nickname LIKE CONCAT('%',#{nickname,jdbcType=VARCHAR},'%' )
+        </if>
+    </select>
+
+    <select id="selectAdminById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Admin_Column_List"/>
+        from sys_user
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectUserById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="User_Column_List"/>
+        from sys_user
+        where id = #{id,jdbcType=INTEGER}
     </select>
 
     <select id="selectByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">

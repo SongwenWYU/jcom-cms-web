@@ -51,8 +51,24 @@ public class SysUserServiceImpl implements SysUserService {
     public PageInfo<SysUser> select(String username, String nickName, int currentPage, int pageSize) {
         PageHelper.startPage(currentPage, pageSize);
         List<SysUser> sysUserList = sysUserMapper.select(username, nickName);
-        PageInfo<SysUser> pageInfo = new PageInfo<>(sysUserList);
-        return pageInfo;
+        return new PageInfo<>(sysUserList);
+    }
+
+    @Override
+    public PageInfo<SysUser> selectAdmin(String username, String nickname, int currentPage, int pageSize) {
+        PageHelper.startPage(currentPage, pageSize);
+        List<SysUser> sysUserList = sysUserMapper.selectAdmin(username, nickname);
+        return new PageInfo<>(sysUserList);
+    }
+
+    @Override
+    public SysUser selectAdminById(Integer id) {
+        return sysUserMapper.selectAdminById(id);
+    }
+
+    @Override
+    public SysUser selectUserById(Integer id) {
+        return sysUserMapper.selectUserById(id);
     }
 
     @Override
