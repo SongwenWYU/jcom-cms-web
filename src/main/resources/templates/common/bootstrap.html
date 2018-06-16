@@ -8,3 +8,7 @@
 <!--<script type="text/javascript" th:src="@{/jquery/jquery-3.3.1.min.js}"></script>-->
 <!--<script type="text/javascript" th:src="@{/popper/popper.min.js}"></script>-->
 <!--<script type="text/javascript" th:src="@{/bootstrap-4.1.1-dist/js/bootstrap.min.js}"></script>-->
+<script th:inline="javascript">
+
+    var baseUrl = [[${#servletContext.contextPath}]];
+</script>
