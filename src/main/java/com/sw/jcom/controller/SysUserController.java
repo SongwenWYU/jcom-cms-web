@@ -2,6 +2,7 @@ package com.sw.jcom.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.sw.jcom.common.Contents;
+import com.sw.jcom.domain.entity.DataTablesInfo;
 import com.sw.jcom.domain.entity.ResultEntity;
 import com.sw.jcom.domain.model.SysUser;
 import com.sw.jcom.service.SysUserService;
@@ -14,9 +15,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
+ * 用户管理
  * @author songwen
  * gmail: zero.hero.he@gmail.com
  * Created on 2018/6/15
@@ -135,7 +138,7 @@ public class SysUserController {
 
     @RequestMapping("/au/user/getAll")
     @ResponseBody
-    public PageInfo<SysUser> getUsers(String username, String nickname, int currentPage, int pageSize){
-        return sysUserService.selectAdmin(username, nickname, currentPage, pageSize);
+    public DataTablesInfo<SysUser> getUsers(String username, String nickname, int currentPage, int pageSize, HttpServletRequest request){
+        return new DataTablesInfo<SysUser>(sysUserService.selectAdmin(username, nickname, currentPage, pageSize), request);
     }
 }

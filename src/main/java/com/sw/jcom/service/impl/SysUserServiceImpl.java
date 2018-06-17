@@ -48,15 +48,15 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public PageInfo<SysUser> select(String username, String nickName, int currentPage, int pageSize) {
-        PageHelper.startPage(currentPage, pageSize);
+    public PageInfo<SysUser> select(String username, String nickName, int offset, int limit) {
+        PageHelper.offsetPage(offset, limit);
         List<SysUser> sysUserList = sysUserMapper.select(username, nickName);
         return new PageInfo<>(sysUserList);
     }
 
     @Override
-    public PageInfo<SysUser> selectAdmin(String username, String nickname, int currentPage, int pageSize) {
-        PageHelper.startPage(currentPage, pageSize);
+    public PageInfo<SysUser> selectAdmin(String username, String nickname, int offset, int limit) {
+        PageHelper.offsetPage(offset, limit);
         List<SysUser> sysUserList = sysUserMapper.selectAdmin(username, nickname);
         return new PageInfo<>(sysUserList);
     }
