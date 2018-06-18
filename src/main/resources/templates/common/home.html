@@ -146,7 +146,7 @@
                     <img th:src="@{/image/avatar5.png}" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block" th:text="${username}">用户名</a>
+                    <a href="#" data-toggle="modal" data-target="#userModal" class="d-block" th:text="${nickname}">用户名</a>
                 </div>
             </div>
 
@@ -222,6 +222,42 @@
     <aside class="control-sidebar control-sidebar-dark">
         <!-- Control sidebar content goes here -->
     </aside>
+
+    <!-- Modal -->
+    <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userModalLabel">用户信息</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="username">用户名</label>
+                            <input type="text" th:value="${username}" readonly class="form-control-plaintext" id="username" aria-describedby="emailHelp" placeholder="用户名">
+                        </div>
+                        <div class="form-group">
+                            <label for="nickname">昵称</label>
+                            <input type="text" th:value="${nickname}" readonly class="form-control-plaintext" id="nickname" placeholder="昵称">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">邮箱</label>
+                            <input type="email" th:value="${email}" readonly class="form-control-plaintext" id="email" placeholder="邮箱">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success btn-sm">修改用户信息</button>
+                    <button type="button" class="btn btn-success btn-sm">修改密码</button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Main Footer -->
     <footer class="main-footer">
         <!--<div class="float-right d-none d-sm-block">-->
