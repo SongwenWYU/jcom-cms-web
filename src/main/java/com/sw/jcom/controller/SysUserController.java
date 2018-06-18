@@ -114,6 +114,12 @@ public class SysUserController {
         return new ResultEntity(ResultEntity.Code.ERROR_UPDATE);
     }
 
+    /**
+     * 更新用户状态
+     * @param session
+     * @param state
+     * @return
+     */
     @RequestMapping("/au/user/update")
     @ResponseBody
     public ResultEntity modify(HttpSession session, String state){
@@ -135,10 +141,36 @@ public class SysUserController {
         return new ResultEntity(ResultEntity.Code.ERROR_UPDATE);
     }
 
+    /**
+     * 删除用户
+     * @param session
+     * @param username
+     * @return
+     */
+    @RequestMapping("/au/user/delete")
+    @ResponseBody
+    public ResultEntity delete(HttpSession session, String username){
+        if(StringUtils.isBlank(username)){
+            return new ResultEntity(ResultEntity.Code.ERROR_EMPTY);
+        }
+        SysUser user = sysUserService.selectByUsername(username);
+        int updateCount = sysUserService.deleteByPrimaryKey(user.getId());
+        if(updateCount == 1){
+            return new ResultEntity(ResultEntity.Code.OK);
+        }
+        return new ResultEntity(ResultEntity.Code.ERROR_UPDATE);
+    }
+
 
     @RequestMapping("/au/user/getAll")
     @ResponseBody
-    public DataTablesInfo<SysUser> getUsers(String username, String nickname, int currentPage, int pageSize, HttpServletRequest request){
-        return new DataTablesInfo<SysUser>(sysUserService.selectAdmin(username, nickname, currentPage, pageSize), request);
+    public DataTablesInfo<SysUser> getUsers(String username, String nickname, int start, int length, HttpServletRequest request){
+        return new DataTablesInfo<SysUser>(sysUserService.selectAdmin(username, nickname, start, length), request);
+    }
+
+    @RequestMapping("/au/user/getAlls")
+    @ResponseBody
+    public DataTablesInfo<SysUser> getAll(HttpServletRequest request){
+        return new DataTablesInfo<SysUser>(sysUserService.selectAdmin("", "", 0, 10), request);
     }
 }

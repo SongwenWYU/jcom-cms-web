@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>用户管理</title>
+
+    <script th:replace="/common/bootstrap"></script>
+    <script th:replace="/common/datatables"></script>
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">用户管理</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <!-- 查询条件 -->
+                            <div class="row">
+                                <div class="card col-12">
+                                    <div class="card-body">
+                                        <form class="form-inline">
+                                            <div class="form-row align-items-center col-12">
+                                                <div class="form-group">
+                                                    <label class="col-auto col-form-label" for="username">用户名</label>
+                                                    <input type="text" class="form-control" id="username" name="username" placeholder="填写用户名">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-auto col-form-label" for="nickname">昵称</label>
+                                                    <input type="text" class="form-control" id="nickname" name="nickname" placeholder="填写昵称">
+                                                </div>
+                                                <div class="col-auto col-sm-6">
+                                                    <button type="button" id="query" class="btn btn-primary btn-sm">查询</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- 表格-->
+                            <table id="userTable" class="table table-bordered table-striped">
+
+                            </table>
+                            <!--<div class="row table-responsive p-0">-->
+                                <!---->
+
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>
+<script th:src="@{/page/sys/js/sysUser.js}"></script>
+</body>
+</html>
