@@ -29,7 +29,7 @@ public class LoginController {
     public String login(HttpServletRequest request, Model model, @RequestParam(value = "error", required = false) String error) {
         HttpSession session = request.getSession(false);
         if(session != null && session.getAttribute(Contents.SESSION_USERDETAIL) != null){
-            return "redirect:/index";
+            return "redirect:/home";
         }
         if (error != null && session != null) {
             AuthenticationException ex = (AuthenticationException) session
