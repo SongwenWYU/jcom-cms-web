@@ -118,14 +118,14 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/")
                 .permitAll()
-                .and().headers().frameOptions().sameOrigin();
+                .and().headers().frameOptions().sameOrigin()
 //                .and()
 //                .rememberMe()
 //                .tokenValiditySeconds(1209600)
 //                .tokenRepository(persistentTokenRepository());
-//                .and()
+                .and()
 //                暂时禁用CSRF，否则无法提交表单
-//                .csrf().disable();
+                .csrf().disable();
     }
 
 //    /**
