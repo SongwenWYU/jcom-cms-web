@@ -39,8 +39,8 @@ $(document).ready(function() {
             { "data": "gmtModified", "title": "修改时间" },
             { "data": "username", "title": "操作", "render": function ( data, type, row ) {
                 var buttonGroup = "<div class=\"btn-group\" role=\"group\" aria-label=\"操作\">\n" +
-                    "  <button type=\"button\" class=\"btn btn-warning state\">锁定</button>\n" +
-                    "  <button type=\"button\" class=\"btn btn-danger delete\">删除</button>\n" +
+                    "  <button type=\"button\" class=\"btn btn-warning btn-sm state\">锁定</button>\n" +
+                    "  <button type=\"button\" class=\"btn btn-danger btn-sm delete\">删除</button>\n" +
                     "</div>";
                     return buttonGroup;
                 }}

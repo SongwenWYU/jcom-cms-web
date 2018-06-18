@@ -60,7 +60,9 @@ public class IndexController {
         UserDetails userDetails = (UserDetails) session.getAttribute(Contents.SESSION_USERDETAIL);
         String username = userDetails.getUsername();
         SysUser user = sysUserService.selectByUsername(username);
-        model.addAttribute("username", user.getNickname());
+        model.addAttribute("username", user.getUsername());
+        model.addAttribute("nickname", user.getNickname());
+        model.addAttribute("email", user.getEmail());
 
         //菜单
         List<SysRoleUser> sysRoleUserList = sysRoleUserService.selectByUserId(user.getId());
