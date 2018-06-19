@@ -7,12 +7,13 @@
     <title>用户管理</title>
 
     <script th:replace="/common/bootstrap"></script>
+    <script th:replace="/common/adminlte"></script>
     <script th:replace="/common/datatables"></script>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <!--<div class="content-wrapper">-->
         <!-- Main content -->
         <section class="content">
             <div class="row">
@@ -47,10 +48,13 @@
 
                             </div>
 
-                            <!-- 表格-->
-                            <table id="userTable" class="table table-bordered table-striped">
+                            <div class="table-responsive">
+                                <!-- 表格-->
+                                <table id="userTable" class="table table-bordered table-striped">
 
-                            </table>
+                                </table>
+                            </div>
+
                             <!--<div class="row table-responsive p-0">-->
                                 <!---->
 
@@ -62,7 +66,7 @@
         </section>
 
     </div>
-</div>
+<!--</div>-->
 <script th:src="@{/page/sys/js/sysUser.js}"></script>
 </body>
 </html>
