@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -46,7 +47,7 @@ public class SysUserController {
     }
     @RequestMapping("/u/user/pwdPage")
     public String getUserPwdPage(){
-        return "/sys/sysuser-pwd";
+        return "/sys/sysUser-pwd";
     }
 
     @RequestMapping("/au/user/get")
@@ -67,26 +68,35 @@ public class SysUserController {
     /**
      * 更新用户密码
      * @param session
-     * @param updatePwd
+     * @param oldPassword
+     * @param newPassword
+     * @param newPassword2
      * @return
      */
-    @RequestMapping("/u/user/updatePwd")
+    @PostMapping("/u/user/updatePwd")
     @ResponseBody
-    public ResultEntity modifyPwd(HttpSession session, String updatePwd){
-        if(StringUtils.isBlank(updatePwd)){
+    public ResultEntity modifyPwd(HttpSession session, String oldPassword, String newPassword, String newPassword2){
+        if(StringUtils.isBlank(oldPassword) || StringUtils.isBlank(newPassword) || StringUtils.isBlank(newPassword2)){
             return new ResultEntity(ResultEntity.Code.PASSWORD_EMPTY);
         }
+        if(oldPassword.equals(newPassword)){
+            return new ResultEntity(ResultEntity.Code.PASSWORD_EQUAL);
+        }
+        if(!newPassword.equals(newPassword2)){
+            return new ResultEntity(ResultEntity.Code.PASSWORD_NEW_NOT_EQUAL);
+        }
+
         UserDetails userDetails = (UserDetails) session.getAttribute(Contents.SESSION_USERDETAIL);
         String username = userDetails.getUsername();
-        if(userDetails.getPassword().equals(updatePwd)){
-            return new ResultEntity(ResultEntity.Code.PASSWORD_EQUAL);
+        if(!userDetails.getPassword().equals(oldPassword)){
+            return new ResultEntity(ResultEntity.Code.PASSWORD_NOT_EQUAL);
         }
 
         SysUser user = sysUserService.selectByUsername(username);
 
         SysUser updateUser = new SysUser();
         updateUser.setId(user.getId());
-        updateUser.setPassword(updatePwd);
+        updateUser.setPassword(newPassword);
         int updateCount = sysUserService.updateByPrimaryKeySelective(updateUser);
         if(updateCount == 1){
             return new ResultEntity(ResultEntity.Code.OK);

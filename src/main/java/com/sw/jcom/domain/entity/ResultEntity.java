@@ -16,8 +16,10 @@ public class ResultEntity {
     public enum Code{
         OK(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase()),
         PASSWORD_EMPTY(10000, "密码为空"),
-        PASSWORD_EQUAL(10000, "与原密码相同"),
-        PASSWORD_UPDATE_ERROR(10000, "密码更新失败"),
+        PASSWORD_EQUAL(10001, "与原密码相同"),
+        PASSWORD_NEW_NOT_EQUAL(10002, "修改密码两次输入不相同"),
+        PASSWORD_NOT_EQUAL(10003, "原密码错误"),
+        PASSWORD_UPDATE_ERROR(10004, "密码更新失败"),
         ERROR_EMPTY(10101, "填写信息有空值"),
         ERROR_UPDATE(10102, "更新失败");
 
