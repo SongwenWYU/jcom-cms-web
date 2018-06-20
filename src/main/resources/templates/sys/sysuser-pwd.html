@@ -8,28 +8,60 @@
     <script th:replace="/common/adminlte"></script>
     <title>更新密码</title>
 </head>
-<body class="hold-transition sidebar-mini">
-<div class="wrapper">
-    <!-- Content Wrapper. Contains page content -->
-    <div>
-        <!-- Main content -->
-        <section class="content">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">更新密码</h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
+<body class="hold-transition register-page">
 
-                        </div>
+<div class="register-box">
+    <div class="card">
+        <div class="card-body register-card-body">
+            <p class="login-box-msg">修改密码</p>
+
+            <form th:action="@{/}" method="post">
+                <div class="form-group has-feedback">
+                    <label for="oldPassword" class="col-sm-3 col-form-label">原密码</label>
+                    <div class="input-group">
+                        <span class="input-group-append">
+                            <span class="input-group-text">
+                              <i class="fa fa-key"></i>
+                            </span>
+                        </span>
+                        <input type="password" name="oldPassword" class="form-control" id="oldPassword" placeholder="原密码" required>
+
                     </div>
                 </div>
-            </div>
-        </section>
+                <div class="form-group has-feedback">
+                    <label for="newPassword" class="col-sm-3 col-form-label">新密码</label>
+                    <div class="input-group">
+                        <span class="input-group-append">
+                            <span class="input-group-text">
+                              <i class="fa fa-lock"></i>
+                            </span>
+                        </span>
+                        <input type="password" name="newPassword" class="form-control" id="newPassword" placeholder="新密码" required>
 
-    </div>
+                    </div>
+                </div>
+                <div class="form-group has-feedback">
+                    <label for="newPassword2" class="col-sm-3 col-form-label">确认密码</label>
+                    <div class="input-group">
+                        <span class="input-group-append">
+                            <span class="input-group-text">
+                              <i class="fa fa-lock"></i>
+                            </span>
+                        </span>
+                        <input type="password" name="newPassword2" class="form-control" id="newPassword2" placeholder="再次输入新密码" required>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- /.form-box -->
+    </div><!-- /.card -->
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.10.0/js/md5.min.js"></script>
 </body>
 </html>

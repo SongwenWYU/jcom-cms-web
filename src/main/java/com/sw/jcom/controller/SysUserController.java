@@ -40,6 +40,15 @@ public class SysUserController {
         return SysUserController.thisPage;
     }
 
+    @RequestMapping("/u/user/detailPage")
+    public String getUserDetailPage(){
+        return "/sys/sysUser-detail";
+    }
+    @RequestMapping("/u/user/pwdPage")
+    public String getUserPwdPage(){
+        return "/sys/sysuser-pwd";
+    }
+
     @RequestMapping("/au/user/get")
     @ResponseBody
     public SysUser getUserById(Integer userId){
