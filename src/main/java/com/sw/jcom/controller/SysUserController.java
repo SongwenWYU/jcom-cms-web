@@ -1,6 +1,5 @@
 package com.sw.jcom.controller;
 
-import com.github.pagehelper.PageInfo;
 import com.sw.jcom.common.Contents;
 import com.sw.jcom.domain.entity.DataTablesInfo;
 import com.sw.jcom.domain.entity.ResultEntity;
@@ -12,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * 用户管理
+ *
  * @author songwen
  * gmail: zero.hero.he@gmail.com
  * Created on 2018/6/15
@@ -37,28 +38,35 @@ public class SysUserController {
 
 
     @RequestMapping("/au/user")
-    public String getPage(){
+    public String getPage() {
         return SysUserController.thisPage;
     }
 
     @RequestMapping("/u/user/detailPage")
-    public String getUserDetailPage(){
+    public String getUserDetailPage(Model model, HttpSession session) {
+        UserDetails userDetails = (UserDetails) session.getAttribute(Contents.SESSION_USERDETAIL);
+        String username = userDetails.getUsername();
+        SysUser user = sysUserService.selectByUsername(username);
+        model.addAttribute("username", user.getUsername());
+        model.addAttribute("nickname", user.getNickname());
+        model.addAttribute("email", user.getEmail());
         return "/sys/sysUser-detail";
     }
+
     @RequestMapping("/u/user/pwdPage")
-    public String getUserPwdPage(){
+    public String getUserPwdPage() {
         return "/sys/sysUser-pwd";
     }
 
     @RequestMapping("/au/user/get")
     @ResponseBody
-    public SysUser getUserById(Integer userId){
+    public SysUser getUserById(Integer userId) {
         return sysUserService.selectAdminById(userId);
     }
 
     @RequestMapping("/u/user/get")
     @ResponseBody
-    public SysUser getOwn(HttpSession session){
+    public SysUser getOwn(HttpSession session) {
         UserDetails userDetails = (UserDetails) session.getAttribute(Contents.SESSION_USERDETAIL);
         String username = userDetails.getUsername();
         SysUser user = sysUserService.selectByUsername(username);
@@ -67,6 +75,7 @@ public class SysUserController {
 
     /**
      * 更新用户密码
+     *
      * @param session
      * @param oldPassword
      * @param newPassword
@@ -75,20 +84,20 @@ public class SysUserController {
      */
     @PostMapping("/u/user/updatePwd")
     @ResponseBody
-    public ResultEntity modifyPwd(HttpSession session, String oldPassword, String newPassword, String newPassword2){
-        if(StringUtils.isBlank(oldPassword) || StringUtils.isBlank(newPassword) || StringUtils.isBlank(newPassword2)){
+    public ResultEntity modifyPwd(HttpSession session, String oldPassword, String newPassword, String newPassword2) {
+        if (StringUtils.isBlank(oldPassword) || StringUtils.isBlank(newPassword) || StringUtils.isBlank(newPassword2)) {
             return new ResultEntity(ResultEntity.Code.PASSWORD_EMPTY);
         }
-        if(oldPassword.equals(newPassword)){
+        if (oldPassword.equals(newPassword)) {
             return new ResultEntity(ResultEntity.Code.PASSWORD_EQUAL);
         }
-        if(!newPassword.equals(newPassword2)){
+        if (!newPassword.equals(newPassword2)) {
             return new ResultEntity(ResultEntity.Code.PASSWORD_NEW_NOT_EQUAL);
         }
 
         UserDetails userDetails = (UserDetails) session.getAttribute(Contents.SESSION_USERDETAIL);
         String username = userDetails.getUsername();
-        if(!userDetails.getPassword().equals(oldPassword)){
+        if (!userDetails.getPassword().equals(oldPassword)) {
             return new ResultEntity(ResultEntity.Code.PASSWORD_NOT_EQUAL);
         }
 
@@ -98,7 +107,7 @@ public class SysUserController {
         updateUser.setId(user.getId());
         updateUser.setPassword(newPassword);
         int updateCount = sysUserService.updateByPrimaryKeySelective(updateUser);
-        if(updateCount == 1){
+        if (updateCount == 1) {
             return new ResultEntity(ResultEntity.Code.OK);
         }
         return new ResultEntity(ResultEntity.Code.PASSWORD_UPDATE_ERROR);
@@ -106,6 +115,7 @@ public class SysUserController {
 
     /**
      * 更新用户昵称及邮箱
+     *
      * @param session
      * @param nickname
      * @param email
@@ -113,8 +123,8 @@ public class SysUserController {
      */
     @RequestMapping("/u/user/update")
     @ResponseBody
-    public ResultEntity modify(HttpSession session, String nickname, String email){
-        if(StringUtils.isBlank(nickname) || StringUtils.isBlank(email)){
+    public ResultEntity modify(HttpSession session, String nickname, String email) {
+        if (StringUtils.isBlank(nickname) || StringUtils.isBlank(email)) {
             return new ResultEntity(ResultEntity.Code.ERROR_EMPTY);
         }
         UserDetails userDetails = (UserDetails) session.getAttribute(Contents.SESSION_USERDETAIL);
@@ -127,7 +137,7 @@ public class SysUserController {
         updateUser.setNickname(nickname);
         updateUser.setEmail(email);
         int updateCount = sysUserService.updateByPrimaryKeySelective(updateUser);
-        if(updateCount == 1){
+        if (updateCount == 1) {
             return new ResultEntity(ResultEntity.Code.OK);
         }
         return new ResultEntity(ResultEntity.Code.ERROR_UPDATE);
@@ -135,14 +145,15 @@ public class SysUserController {
 
     /**
      * 更新用户状态
+     *
      * @param session
      * @param state
      * @return
      */
     @RequestMapping("/au/user/update")
     @ResponseBody
-    public ResultEntity modify(HttpSession session, String state){
-        if(StringUtils.isBlank(state)){
+    public ResultEntity modify(HttpSession session, String state) {
+        if (StringUtils.isBlank(state)) {
             return new ResultEntity(ResultEntity.Code.ERROR_EMPTY);
         }
         UserDetails userDetails = (UserDetails) session.getAttribute(Contents.SESSION_USERDETAIL);
@@ -154,7 +165,7 @@ public class SysUserController {
         updateUser.setId(user.getId());
         updateUser.setState(state);
         int updateCount = sysUserService.updateByPrimaryKeySelective(updateUser);
-        if(updateCount == 1){
+        if (updateCount == 1) {
             return new ResultEntity(ResultEntity.Code.OK);
         }
         return new ResultEntity(ResultEntity.Code.ERROR_UPDATE);
@@ -162,19 +173,20 @@ public class SysUserController {
 
     /**
      * 删除用户
+     *
      * @param session
      * @param username
      * @return
      */
     @RequestMapping("/au/user/delete")
     @ResponseBody
-    public ResultEntity delete(HttpSession session, String username){
-        if(StringUtils.isBlank(username)){
+    public ResultEntity delete(HttpSession session, String username) {
+        if (StringUtils.isBlank(username)) {
             return new ResultEntity(ResultEntity.Code.ERROR_EMPTY);
         }
         SysUser user = sysUserService.selectByUsername(username);
         int updateCount = sysUserService.deleteByPrimaryKey(user.getId());
-        if(updateCount == 1){
+        if (updateCount == 1) {
             return new ResultEntity(ResultEntity.Code.OK);
         }
         return new ResultEntity(ResultEntity.Code.ERROR_UPDATE);
@@ -183,13 +195,13 @@ public class SysUserController {
 
     @RequestMapping("/au/user/getAll")
     @ResponseBody
-    public DataTablesInfo<SysUser> getUsers(String username, String nickname, int start, int length, HttpServletRequest request){
+    public DataTablesInfo<SysUser> getUsers(String username, String nickname, int start, int length, HttpServletRequest request) {
         return new DataTablesInfo<SysUser>(sysUserService.selectAdmin(username, nickname, start, length), request);
     }
 
     @RequestMapping("/au/user/getAlls")
     @ResponseBody
-    public DataTablesInfo<SysUser> getAll(HttpServletRequest request){
+    public DataTablesInfo<SysUser> getAll(HttpServletRequest request) {
         return new DataTablesInfo<SysUser>(sysUserService.selectAdmin("", "", 0, 10), request);
     }
 }

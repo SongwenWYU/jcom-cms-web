@@ -2,9 +2,134 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>用户信息更改</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script th:replace="/common/bootstrap"></script>
+    <script th:replace="/common/adminlte"></script>
+    <title>个人信息更改</title>
 </head>
-<body>
+<body class="hold-transition register-page">
 
+<div class="register-box">
+    <div class="card">
+        <div class="card-body register-card-body">
+            <p class="login-box-msg">个人信息更改</p>
+
+            <form action="#" method="post" class="needs-validation" novalidate>
+                <div class="form-group has-feedback">
+                    <label for="username" class="col-sm-3 col-form-label">用户名</label>
+                    <div class="input-group">
+                        <span class="input-group-append">
+                            <span class="input-group-text">
+                              <i class="fa fa-address-book-o"></i>
+                            </span>
+                        </span>
+                        <input th:value="${username}" type="text" name="username"
+                               class="form-control form-control-plaintext" id="username" placeholder="用户名" readonly>
+                    </div>
+
+                </div>
+                <div class="form-group has-feedback">
+                    <label for="nickname" class="col-sm-3 col-form-label">昵称</label>
+                    <div class="input-group">
+                        <span class="input-group-append">
+                            <span class="input-group-text">
+                              <i class="fa fa-address-card-o"></i>
+                            </span>
+                        </span>
+                        <input th:value="${nickname}" type="text" name="nickname" class="form-control" id="nickname"
+                               placeholder="昵称" required>
+                        <div class="invalid-feedback">
+                            请填写昵称！
+                        </div>
+                        <div class="valid-feedback">
+                            完美！
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group has-feedback">
+                    <label for="email" class="col-sm-3 col-form-label">邮箱</label>
+                    <div class="input-group">
+                        <span class="input-group-append">
+                            <span class="input-group-text">
+                              <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </span>
+                        <input th:value="${email}" type="email" name="email" class="form-control" id="email"
+                               placeholder="邮箱" required>
+                        <div class="invalid-feedback">
+                            请填写邮箱！
+                        </div>
+                        <div class="valid-feedback">
+                            完美！
+                        </div>
+                    </div>
+                </div>
+                <div class="alert alert-warning" role="alert" hidden="hidden">
+                    修改个人信息失败！
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- /.form-box -->
+    </div><!-- /.card -->
+</div>
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.stopPropagation();
+                    } else {
+                        $('.alert').html("请求中……");
+                        $(".alert").removeAttr("hidden");
+                        $.ajax({
+                            type: "POST",
+                            dataType: "json",
+                            url: baseUrl + "/u/user/update",
+                            data: {
+                                nickname: $("#nickname").val(),
+                                email: $("#email").val()
+                            },
+                            success: function (msg) {
+                                // console.log(msg)
+                                // var jsonObj = JSON.parse(msg);
+                                if (msg.code === 200) {
+                                    setInterval(refresh, 1000);
+                                } else {
+                                    $('.alert').html(msg.content);
+                                }
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                $('.alert').html("请求出现错误！");
+                            }
+                        });
+                    }
+                    event.preventDefault();
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+    var i = 5;
+
+    function refresh() {
+        $('.alert').html("更新成功！" + i + "s后自动刷新页面……");
+        i--;
+        if (i <= 0) {
+            parent.location.reload();
+        }
+    }
+</script>
 </body>
 </html>
