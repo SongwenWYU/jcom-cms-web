@@ -147,17 +147,16 @@ public class SysUserController {
      * 更新用户状态
      *
      * @param session
+     * @param username
      * @param state
      * @return
      */
-    @RequestMapping("/au/user/update")
+    @RequestMapping("/au/user/update/state")
     @ResponseBody
-    public ResultEntity modify(HttpSession session, String state) {
-        if (StringUtils.isBlank(state)) {
+    public ResultEntity modifyState(HttpSession session, String username, String state) {
+        if (StringUtils.isBlank(state) || StringUtils.isBlank(username)) {
             return new ResultEntity(ResultEntity.Code.ERROR_EMPTY);
         }
-        UserDetails userDetails = (UserDetails) session.getAttribute(Contents.SESSION_USERDETAIL);
-        String username = userDetails.getUsername();
 
         SysUser user = sysUserService.selectByUsername(username);
 
