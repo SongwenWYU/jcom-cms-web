@@ -12,7 +12,6 @@ $(document).ready(function () {
         "deferRender": true,
         "processing": true,
         "serverSide": true,
-        "scrollX": true,
         // "pageLength": 10,
         "ajax": {
             "url": baseUrl + "/au/user/getAll",
