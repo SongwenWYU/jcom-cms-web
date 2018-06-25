@@ -14,6 +14,9 @@ import org.springframework.http.HttpStatus;
 public class ResultEntity {
 
     public enum Code{
+        /**
+         *
+         */
         OK(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase()),
         PASSWORD_EMPTY(10000, "密码为空"),
         PASSWORD_EQUAL(10001, "与原密码相同"),
@@ -21,7 +24,8 @@ public class ResultEntity {
         PASSWORD_NOT_EQUAL(10003, "原密码错误"),
         PASSWORD_UPDATE_ERROR(10004, "密码更新失败"),
         ERROR_EMPTY(10101, "填写信息有空值"),
-        ERROR_UPDATE(10102, "更新失败");
+        ERROR_UPDATE(10102, "更新失败"),
+        ERROR_DELETE(10103, "删除失败");
 
         private Integer code;
         private String message;
