@@ -54,11 +54,30 @@ public class SysMenuController {
         if(id == null){
             return new ResultEntity(ResultEntity.Code.ERROR_EMPTY);
         }
+        // TODO 校验删除的菜单是否有子菜单
         int deleteCount = sysMenuService.deleteByPrimaryKey(id);
         if (deleteCount == 1) {
             return new ResultEntity(ResultEntity.Code.OK);
         }
         return new ResultEntity(ResultEntity.Code.ERROR_DELETE);
+    }
+
+    /**
+     * 删除菜单，包括子菜单
+     * @param id
+     * @return
+     */
+    @PostMapping("/au/menu/delete/all")
+    @ResponseBody
+    public ResultEntity deleteAll(Integer id){
+        if(id == null){
+            return new ResultEntity(ResultEntity.Code.ERROR_EMPTY);
+        }
+        // TODO 查询所有子菜单
+
+        // TODO 删除所有菜单
+
+        return null;
     }
 
     @PostMapping("/au/menu/add")
