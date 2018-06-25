@@ -37,7 +37,6 @@ public class SysMenuController {
     @ResponseBody
     public TreeSet<SysMenuMap> getAllMenu(){
         List<SysMenu> sysMenuList = sysMenuService.selectAll();
-        TreeSet<SysMenuMap> sysMenuMapList = sysMenuService.menuFormat(sysMenuList);
-        return sysMenuMapList;
+        return sysMenuService.menuFormat(sysMenuList);
     }
 }
