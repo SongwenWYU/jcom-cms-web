@@ -188,7 +188,7 @@ public class SysUserController {
         if (updateCount == 1) {
             return new ResultEntity(ResultEntity.Code.OK);
         }
-        return new ResultEntity(ResultEntity.Code.ERROR_UPDATE);
+        return new ResultEntity(ResultEntity.Code.ERROR_DELETE);
     }
 
 
