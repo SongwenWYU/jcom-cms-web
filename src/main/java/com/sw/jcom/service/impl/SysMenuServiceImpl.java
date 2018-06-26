@@ -27,7 +27,18 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public int deleteByPrimaryKey(Integer id) {
+        if(id == null){
+            return 0;
+        }
         return sysMenuMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public int deleteByIds(Integer[] ids) {
+        if(ids == null || ids.length == 0){
+            return 0;
+        }
+        return sysMenuMapper.deleteByIds(ids);
     }
 
     @Override
@@ -48,6 +59,11 @@ public class SysMenuServiceImpl implements SysMenuService {
     @Override
     public List<SysMenu> selectByIds(Integer[] ids) {
         return sysMenuMapper.selectByIds(ids);
+    }
+
+    @Override
+    public List<SysMenu> selectChildsByParentId(Integer id) {
+        return sysMenuMapper.selectChildsByParentId(id);
     }
 
     @Override
