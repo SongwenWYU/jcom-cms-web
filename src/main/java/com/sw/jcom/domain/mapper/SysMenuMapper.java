@@ -12,11 +12,20 @@ import java.util.List;
 public interface SysMenuMapper {
     int deleteByPrimaryKey(Integer id);
 
+    /**
+     * 删除节点
+     * @param ids
+     * @return
+     */
+    int deleteByIds(Integer[] ids);
+
     int insert(SysMenu record);
 
     int insertSelective(SysMenu record);
 
     SysMenu selectByPrimaryKey(Integer id);
+
+    List<SysMenu> selectChildsByParentId(Integer id);
 
     List<SysMenu> selectByIds(Integer[] ids);
 
