@@ -108,6 +108,14 @@ public class SysMenuController {
     @PostMapping("/au/menu/add")
     @ResponseBody
     public ResultEntity add(SysMenu sysMenu){
-        return null;
+        if(StringUtils.isBlank(sysMenu.getMenuType()) || StringUtils.isBlank(sysMenu.getManuName())){
+            return new ResultEntity(ResultEntity.Code.ERROR_EMPTY);
+        }
+
+        int addCount = sysMenuService.insert(sysMenu);
+        if (addCount > 0) {
+            return new ResultEntity(ResultEntity.Code.OK);
+        }
+        return new ResultEntity(ResultEntity.Code.ERROR_ADD);
     }
 }

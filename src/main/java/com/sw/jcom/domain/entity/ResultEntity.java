@@ -26,6 +26,7 @@ public class ResultEntity {
         MENU_HAVA_CHILD(10203, "含有子菜单"),
         ERROR_EMPTY(10101, "填写信息有空值"),
         ERROR_UPDATE(10102, "更新失败"),
+        ERROR_ADD(10102, "新增失败"),
         ERROR_DELETE(10103, "删除失败");
 
 
