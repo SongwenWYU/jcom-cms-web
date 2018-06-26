@@ -4,6 +4,7 @@ import com.sw.jcom.domain.entity.ResultEntity;
 import com.sw.jcom.domain.entity.SysMenuMap;
 import com.sw.jcom.domain.model.SysMenu;
 import com.sw.jcom.service.SysMenuService;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,8 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * @author songwen
@@ -54,7 +54,11 @@ public class SysMenuController {
         if(id == null){
             return new ResultEntity(ResultEntity.Code.ERROR_EMPTY);
         }
-        // TODO 校验删除的菜单是否有子菜单
+        // 校验删除的菜单是否有子菜单
+        if(sysMenuService.selectChildsByParentId(id).size() > 0){
+            return new ResultEntity(ResultEntity.Code.MENU_HAVA_CHILD);
+        }
+
         int deleteCount = sysMenuService.deleteByPrimaryKey(id);
         if (deleteCount == 1) {
             return new ResultEntity(ResultEntity.Code.OK);
@@ -73,11 +77,32 @@ public class SysMenuController {
         if(id == null){
             return new ResultEntity(ResultEntity.Code.ERROR_EMPTY);
         }
-        // TODO 查询所有子菜单
-
-        // TODO 删除所有菜单
-
-        return null;
+        // 查询所有子菜单
+        List<SysMenu> sysMenuList = sysMenuService.selectChildsByParentId(id);
+        ListIterator<SysMenu> sysMenuIterator = sysMenuList.listIterator();
+        List<Integer> idList = new ArrayList<>(0x00ff);
+        while (sysMenuIterator.hasNext()){
+            SysMenu sysMenu = sysMenuIterator.next();
+            Integer menuId = sysMenu.getId();
+            idList.add(menuId);
+            if(sysMenu.getParent() == 1){
+                List<SysMenu> chidMenuList = sysMenuService.selectChildsByParentId(menuId);
+                for (SysMenu childMenu : chidMenuList) {
+                    idList.add(childMenu.getId());
+                    if(childMenu.getParent() == 1){
+                        sysMenuIterator.add(childMenu);
+                    }
+                }
+            }
+        }
+        // 删除所有菜单
+        Integer[] ids = new Integer[idList.size()];
+        ids = idList.toArray(ids);
+        int deleteCount = sysMenuService.deleteByIds(ids);
+        if (deleteCount > 0) {
+            return new ResultEntity(ResultEntity.Code.OK);
+        }
+        return new ResultEntity(ResultEntity.Code.ERROR_DELETE);
     }
 
     @PostMapping("/au/menu/add")

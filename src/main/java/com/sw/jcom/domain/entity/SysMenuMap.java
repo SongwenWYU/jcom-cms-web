@@ -2,6 +2,7 @@ package com.sw.jcom.domain.entity;
 
 import com.sw.jcom.domain.model.SysMenu;
 import lombok.*;
+import org.apache.commons.lang3.BooleanUtils;
 
 import java.util.Comparator;
 import java.util.TreeSet;
@@ -30,7 +31,7 @@ public class SysMenuMap {
     public SysMenuMap(SysMenu sysMenu){
         this.sysMenu = sysMenu;
         this.order = sysMenu.getMenuOrder();
-        this.parent = false;
+        this.parent = sysMenu.getParent() == 1;
     }
 
     public final static Comparator<SysMenuMap> MENU_MAP_COMPARATOR = new Comparator<SysMenuMap>() {

@@ -23,9 +23,11 @@ public class ResultEntity {
         PASSWORD_NEW_NOT_EQUAL(10002, "修改密码两次输入不相同"),
         PASSWORD_NOT_EQUAL(10003, "原密码错误"),
         PASSWORD_UPDATE_ERROR(10004, "密码更新失败"),
+        MENU_HAVA_CHILD(10203, "含有子菜单"),
         ERROR_EMPTY(10101, "填写信息有空值"),
         ERROR_UPDATE(10102, "更新失败"),
         ERROR_DELETE(10103, "删除失败");
+
 
         private Integer code;
         private String message;

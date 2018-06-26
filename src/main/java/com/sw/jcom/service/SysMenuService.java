@@ -15,6 +15,13 @@ import java.util.TreeSet;
 public interface SysMenuService {
     int deleteByPrimaryKey(Integer id);
 
+    /**
+     * 删除节点
+     * @param ids
+     * @return
+     */
+    int deleteByIds(Integer[] ids);
+
     int insert(SysMenu record);
 
     int insertSelective(SysMenu record);
@@ -22,6 +29,13 @@ public interface SysMenuService {
     SysMenu selectByPrimaryKey(Integer id);
 
     List<SysMenu> selectByIds(Integer[] ids);
+
+    /**
+     * 查询所有孩子节点
+     * @param id
+     * @return
+     */
+    List<SysMenu> selectChildsByParentId(Integer id);
 
     List<SysMenu> selectByRoleIds(Integer[] roleIds);
 
