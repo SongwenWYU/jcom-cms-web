@@ -111,7 +111,7 @@ public class SysMenuServiceImpl implements SysMenuService {
     @Override
     public TreeSet<SysMenuMap> menuFormat(List<SysMenu> sysMenuList) {
         TreeSet<SysMenuMap> sysMenuMaps = new TreeSet<>(SysMenuMap.MENU_MAP_COMPARATOR);
-        Map<Integer, SysMenuMap> sysMenuMapMap = new HashMap<>(0x000f);
+        Map<Integer, SysMenuMap> sysMenuMapMap = new HashMap<>(0x00ff);
 
         for (SysMenu sysMenu : sysMenuList) {
             SysMenuMap sysMenuMap = new SysMenuMap(sysMenu);
@@ -127,9 +127,9 @@ public class SysMenuServiceImpl implements SysMenuService {
                 continue;
             }
             SysMenuMap parentMenuMap = sysMenuMapMap.get(parentId);
-            if(!parentMenuMap.isParent()){
-                parentMenuMap.setParent(true);
-            }
+//            if(!parentMenuMap.isParent()){
+//                parentMenuMap.setParent(true);
+//            }
             parentMenuMap.getSysMenuMaps().add(sysMenuMap);
         }
 
