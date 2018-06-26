@@ -7,6 +7,7 @@
         <result column="url" jdbcType="VARCHAR" property="url"/>
         <result column="manu_name" jdbcType="VARCHAR" property="manuName"/>
         <result column="menu_order" jdbcType="INTEGER" property="menuOrder"/>
+        <result column="is_parent" jdbcType="TINYINT" property="parent"/>
         <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
         <result column="is_blank" jdbcType="TINYINT" property="blank"/>
         <result column="css_icon" jdbcType="VARCHAR" property="cssIcon"/>
@@ -15,7 +16,7 @@
         <result column="gmt_user_id" jdbcType="INTEGER" property="gmtUserId"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, menu_type, url, manu_name, menu_order, parent_id, is_blank, css_icon, gmt_create, 
+    id, menu_type, url, manu_name, menu_order, is_parent, parent_id, is_blank, css_icon, gmt_create,
     gmt_modified, gmt_user_id
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -23,6 +24,12 @@
         <include refid="Base_Column_List"/>
         from sys_menu
         where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectChildsByParentId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_menu
+        where parent_id = #{id,jdbcType=INTEGER}
     </select>
     <select id="selectByIds" resultMap="BaseResultMap">
         select
@@ -43,13 +50,22 @@
     delete from sys_menu
     where id = #{id,jdbcType=INTEGER}
   </delete>
+
+    <delete id="deleteByIds" parameterType="java.lang.Integer">
+        delete from sys_menu
+        where id in
+        <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
     <insert id="insert" parameterType="com.sw.jcom.domain.model.SysMenu">
     insert into sys_menu (id, menu_type, url, 
-      manu_name, menu_order, parent_id, 
+      manu_name, menu_order, is_parent, parent_id,
       is_blank, css_icon, gmt_create, 
       gmt_modified, gmt_user_id)
     values (#{id,jdbcType=INTEGER}, #{menuType,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
-      #{manuName,jdbcType=VARCHAR}, #{menuOrder,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, 
+      #{manuName,jdbcType=VARCHAR}, #{menuOrder,jdbcType=INTEGER}, #{parent,jdbcType=TINYINT}, #{parentId,jdbcType=INTEGER},
       #{blank,jdbcType=TINYINT}, #{cssIcon,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP},
       #{gmtModified,jdbcType=TIMESTAMP}, #{gmtUserId,jdbcType=INTEGER})
   </insert>
@@ -70,6 +86,9 @@
             </if>
             <if test="menuOrder != null">
                 menu_order,
+            </if>
+            <if test="parent != null">
+                is_parent,
             </if>
             <if test="parentId != null">
                 parent_id,
@@ -106,6 +125,9 @@
             <if test="menuOrder != null">
                 #{menuOrder,jdbcType=INTEGER},
             </if>
+            <if test="parent != null">
+                #{parent,jdbcType=TINYINT},
+            </if>
             <if test="parentId != null">
                 #{parentId,jdbcType=INTEGER},
             </if>
@@ -141,6 +163,9 @@
             <if test="menuOrder != null">
                 menu_order = #{menuOrder,jdbcType=INTEGER},
             </if>
+            <if test="parent != null">
+                is_parent = #{parent,jdbcType=TINYINT},
+            </if>
             <if test="parentId != null">
                 parent_id = #{parentId,jdbcType=INTEGER},
             </if>
@@ -168,6 +193,7 @@
       url = #{url,jdbcType=VARCHAR},
       manu_name = #{manuName,jdbcType=VARCHAR},
       menu_order = #{menuOrder,jdbcType=INTEGER},
+      is_parent = #{parent,jdbcType=TINYINT},
       parent_id = #{parentId,jdbcType=INTEGER},
       is_blank = #{blank,jdbcType=TINYINT},
       css_icon = #{cssIcon,jdbcType=VARCHAR},

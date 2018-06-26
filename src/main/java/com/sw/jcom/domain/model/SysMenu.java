@@ -63,6 +63,11 @@ public class SysMenu implements Serializable {
     private Integer parentId;
 
     /**
+     * 是否为父节点
+     */
+    private Byte parent;
+
+    /**
      * 是否新标签页打开
      */
     private Byte blank;
