@@ -21,7 +21,9 @@ public class ResultEntity {
         PASSWORD_NOT_EQUAL(10003, "原密码错误"),
         PASSWORD_UPDATE_ERROR(10004, "密码更新失败"),
         ERROR_EMPTY(10101, "填写信息有空值"),
-        ERROR_UPDATE(10102, "更新失败");
+        ERROR_UPDATE(10102, "更新失败"),
+        USER_REG_ERROR(10200, "用户注册失败"),
+        USER_REG_EXIST(10201, "用户名已经存在");
 
         private Integer code;
         private String message;
