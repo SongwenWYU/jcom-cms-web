@@ -45,7 +45,14 @@ public class SysMenuController {
     @PostMapping("/au/menu/update")
     @ResponseBody
     public ResultEntity update(SysMenu sysMenu){
-        return null;
+        if(StringUtils.isBlank(sysMenu.getMenuType()) || StringUtils.isBlank(sysMenu.getManuName())){
+            return new ResultEntity(ResultEntity.Code.ERROR_EMPTY);
+        }
+        int count = sysMenuService.updateByPrimaryKeySelective(sysMenu);
+        if (count > 0) {
+            return new ResultEntity(ResultEntity.Code.OK);
+        }
+        return new ResultEntity(ResultEntity.Code.ERROR_UPDATE);
     }
 
     @PostMapping("/au/menu/delete")
