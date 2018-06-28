@@ -28,7 +28,8 @@ public class ResultEntity {
         ERROR_UPDATE(10102, "更新失败"),
         ERROR_ADD(10102, "新增失败"),
         ERROR_DELETE(10103, "删除失败"),
-		USER_REG_EXIST(10201, "用户名已经存在");
+        USER_REG_ERROR(10200, "注册失败"),
+        USER_REG_EXIST(10201, "用户名已经存在");
 
         private Integer code;
         private String message;

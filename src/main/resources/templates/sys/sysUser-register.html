@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script th:replace="/common/bootstrap"></script>
     <script th:replace="/common/adminlte"></script>
-    <title>更新密码</title>
+    <script th:replace="/common/datatables"></script>
+    <script th:replace="/common/jquery-confirm"></script>
+    <title>用户注册</title>
 </head>
 <body class="hold-transition register-page">
 
@@ -33,7 +35,7 @@
                         </span>
                         <input type="text" name="username" class="form-control" id="username" placeholder="用户名" required>
                         <div class="invalid-feedback">
-                            用户名需要为字符和数字的组合！
+                            用户名需要为3到16位字符和数字的组合！
                         </div>
                         <div class="valid-feedback">
                             完美！
@@ -66,7 +68,7 @@
                               <i class="fa fa-envelope"></i>
                             </span>
                         </span>
-                        <input type="password" name="email" class="form-control" id="email" placeholder="输入邮箱" required>
+                        <input type="email" name="email" class="form-control" id="email" placeholder="输入邮箱" required>
                         <div class="invalid-feedback">
                             输入正确的邮箱！
                         </div>
@@ -92,9 +94,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="alert alert-warning" role="alert" hidden="hidden">
-                    注册失败！
-                </div>
+                <!--<div class="alert alert-warning" role="alert" hidden="hidden">-->
+                    <!--注册失败！-->
+                <!--</div>-->
                 <div class="row">
                     <div class="col-12">
                         <button type="button" id="registerBtn" class="btn btn-primary btn-block btn-flat">注册</button>

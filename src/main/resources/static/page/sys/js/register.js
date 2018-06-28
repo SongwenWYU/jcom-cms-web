@@ -27,26 +27,30 @@ $(document).ready(function () {
         var email = emailObj.val();
         var password = passwordObj.val();
 
-        if(username === '' || !/^[0-9a-zA-Z_]{6,15}$/.test(username)){
+        if(username === '' || !/^[a-zA-Z0-9_-]{3,16}$/.test(username)){
             invalid(usernameObj);
+            return false;
         }else {
             valid(usernameObj);
         }
 
-        if(nickname === ''){
+        if(nickname === '' || /^[\s]/.test(nickname)){
             invalid(nicknameObj);
+            return false;
         }else {
             valid(nicknameObj);
         }
 
         if(email === '' || !/[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/.test(email)){
             invalid(emailObj);
+            return false;
         }else {
             valid(emailObj);
         }
 
         if(password === '' || !/^[0-9a-zA-Z_]{6,15}$/.test(password)){
             invalid(passwordObj);
+            return false;
         }else {
             valid(passwordObj);
         }
@@ -54,33 +58,59 @@ $(document).ready(function () {
 
         var pwdMd5 = md5(password);
 
-        $('.alert').html("请求中……");
-        $(".alert").removeAttr("hidden");
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: baseUrl + "/u/user/updatePwd",
-            data: {
-                oldPassword: oldMd5,
-                newPassword: newMd5,
-                newPassword2: new2Md5
-            },
-            success: function (msg) {
-                // console.log(msg)
-                // var jsonObj = JSON.parse(msg);
-                if (msg.code === 200) {
-                    $('.alert').html("更新成功！");
-                    $.ajax({
-                        type: "post",
-                        url: baseUrl + "/logout",
-                    });
-                    $('#pwdModal').modal('show');
-                } else {
-                    $('.alert').html(msg.content);
+        var jc = $.confirm({
+            // title: '操作结果',
+            content: '正在注册……',
+            icon: 'fa fa-refresh',
+            theme: 'modern',
+            closeIcon: true,
+            animation: 'scale',
+            buttons: {
+                ok: {
+                    text: '去登录',
+                    isHidden: true,
+                    btnClass: 'btn-success',
+                    action: function (b) {
+                        window.location.href=baseUrl+"/login";
+                    }
+                },
+                error: {
+                    text: '再次尝试',
+                    isHidden: true,
+                    btnClass: 'btn-info'
                 }
             },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                $('.alert').html("请求出现错误！");
+            content: function () {
+                var self = this;
+
+                return $.ajax({
+                    method: 'POST',
+                    dataType: "json",
+                    url: baseUrl+"/register/commit",
+                    data: {
+                        username: username,
+                        nickname: nickname,
+                        email: email,
+                        password: pwdMd5
+                    }
+                }).done(function (msg) {
+                    if (msg.code === 200) {
+                        self.setContent('注册成功！');
+                        self.setIcon('fa fa-smile-o');
+                        self.setType("green");
+                        jc.buttons.ok.show()
+                    } else {
+                        self.setContent(content);
+                        self.setIcon('fa fa-frown-o');
+                        self.setType("red");
+                        jc.buttons.error.show()
+                    }
+                }).fail(function(){
+                    self.setContent('操作出错！');
+                    self.setIcon('fa fa-frown-o');
+                    self.setType("red");
+                    jc.buttons.error.show()
+                });
             }
         });
     });
