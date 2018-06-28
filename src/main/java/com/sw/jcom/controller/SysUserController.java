@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 
 /**
  * 用户管理
@@ -196,11 +197,5 @@ public class SysUserController {
     @ResponseBody
     public DataTablesInfo<SysUser> getUsers(String username, String nickname, int start, int length, HttpServletRequest request) {
         return new DataTablesInfo<SysUser>(sysUserService.selectAdmin(username, nickname, start, length), request);
-    }
-
-    @RequestMapping("/au/user/getAlls")
-    @ResponseBody
-    public DataTablesInfo<SysUser> getAll(HttpServletRequest request) {
-        return new DataTablesInfo<SysUser>(sysUserService.selectAdmin("", "", 0, 10), request);
     }
 }
