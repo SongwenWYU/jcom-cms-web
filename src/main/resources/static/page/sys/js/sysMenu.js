@@ -25,8 +25,14 @@ $(document).ready(function () {
                     theme: 'modern',
                     closeIcon: true,
                     animation: 'scale',
-                    type: 'red'
-                });
+                    type: 'red',
+                    buttons: {
+                        ok: {
+                            text: "确定",
+                            btnClass: "btn btn-danger",
+                            keys: ['enter']
+                        }
+                    });
             }
         });
     }
