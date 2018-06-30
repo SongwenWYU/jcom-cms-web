@@ -2,9 +2,99 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>$[Title]</title>
-</head>
-<body>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>菜单管理</title>
 
+    <script th:replace="/common/bootstrap"></script>
+    <script th:replace="/common/adminlte"></script>
+    <script th:replace="/common/datatables"></script>
+    <script th:replace="/common/jquery-confirm"></script>
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <!-- Content Wrapper. Contains page content -->
+    <!--<div class="content-wrapper">-->
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">菜单管理</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <!-- 查询条件 -->
+                        <div class="row">
+                            <div class="card col-12">
+                                <div class="card-body">
+                                    <form class="form-inline">
+                                        <div class="form-row align-items-center col-12">
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <button type="button" class="btn btn-success" id="refresh">刷新</button>
+                                                <button type="button" class="btn btn-info" id="add">添加</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-auto">
+                                <!-- Main Sidebar Container -->
+                                <aside class="sidebar-dark-primary elevation-4">
+
+                                    <!-- Sidebar -->
+                                    <div class="sidebar">
+
+                                        <!-- Sidebar Menu -->
+                                        <nav class="mt-2">
+                                            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                                                data-accordion="false" id="navUl">
+                                                <!-- Add icons to the links using the .nav-icon class
+                                                     with font-awesome or any other icon font library -->
+                                                <li class="nav-item">
+                                                    <a href="#" data-url="/dashboard" class="nav-link menu-item active">
+                                                        <i class="nav-icon fa fa-dashboard"></i>
+                                                        <p>
+                                                            Dashboard
+                                                            <!--<span class="right badge badge-danger">New</span>-->
+                                                        </p>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="#" class="nav-link">
+                                                        <i class="nav-icon fa fa-circle-o text-info"></i>
+                                                        <p>Informational</p>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                        <!-- /.sidebar-menu -->
+                                    </div>
+                                    <!-- /.sidebar -->
+                                </aside>
+                            </div>
+                        </div>
+
+
+
+                        <!--<div class="row table-responsive p-0">-->
+                        <!---->
+
+                        <!--</div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+<!--</div>-->
+<script th:src="@{/page/sys/js/sysMenu.js}"></script>
 </body>
 </html>
