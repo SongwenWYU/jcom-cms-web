@@ -41,6 +41,7 @@ $(document).ready(function () {
 
     function formatMenu(sysMenuMaps) {
         var menuHtml = "";
+        var i = 1;
         for (var sysMenuMap in sysMenuMaps) {
             var menu = sysMenuMaps[sysMenuMap];
             var item = "";
@@ -49,6 +50,12 @@ $(document).ready(function () {
                     "    <a href=\"#\" class=\"nav-link\">" +
                     "        <i class=\"nav-icon fa " + menu.sysMenu.cssIcon + " \"></i>" +
                     "        <p>" + menu.sysMenu.manuName +
+                    "            <i class=\"right\">" +
+                    "               <i class=\"fa fa-arrow-up\"></i>" +
+                    "               <i class=\"fa fa-arrow-down\"></i>" +
+                    "               <i class=\"fa fa-pencil-square-o\"></i>" +
+                    "               <i class=\"fa fa-times\"></i>" +
+                    "            </i>" +
                     "        </p>" +
                     "    </a>" +
                     "</li>";
@@ -59,16 +66,23 @@ $(document).ready(function () {
                     "        <i class=\"nav-icon fa " + menu.sysMenu.cssIcon + "\"></i>" +
                     "        <p>" +
                     "            <span>" + menu.sysMenu.manuName + "</span>" +
-                    "            <i class=\"right fa fa-angle-left\"></i>" +
+                    "            <div class=\"float-right\">" +
+                    "               <i class=\"fa fa-arrow-up\"></i>" +
+                    "               <i class=\"fa fa-arrow-down\"></i>" +
+                    "               <i class=\"fa fa-pencil-square-o\"></i>" +
+                    "               <i class=\"fa fa-times\"></i>" +
+                    "               <i class=\"right fa fa-angle-left\"></i>" +
+                    "            </div>" +
                     "        </p>" +
                     "    </a>" +
                     "    <ul class=\"nav nav-treeview\">" +
-                    itemChild +
+                    itemChild+
                     "    </ul>" +
                     "</li>";
 
             }
             menuHtml += item;
+            i ++;
         }
         return menuHtml;
     }
