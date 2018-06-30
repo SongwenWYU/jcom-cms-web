@@ -32,7 +32,8 @@ $(document).ready(function () {
                             btnClass: "btn btn-danger",
                             keys: ['enter']
                         }
-                    });
+                    }
+                });
             }
         });
     }
