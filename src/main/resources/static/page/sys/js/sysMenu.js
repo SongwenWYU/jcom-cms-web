@@ -89,12 +89,44 @@ $(document).ready(function () {
         return menuHtml;
     }
 
+    var stopMoveConfirm = $.confirm({
+        content: '已经无法移动了喔！',
+        icon: 'fa fa-hand-paper-o',
+        theme: 'modern',
+        closeIcon: true,
+        animation: 'scale',
+        type: 'green',
+        lazyOpen: true,
+        buttons: {
+            ok: {
+                text: "确定",
+                btnClass: "btn btn-success",
+                keys: ['enter', 'esc']
+            }
+        }
+    });
+
     function operation(obj) {
-        var type = $(obj).attr('data-type');
+        var operatObj = $(obj);
+        var type = operatObj.attr('data-type');
+        var url = "";
+        var id = "";
+        var oId = "";
+        var parentsObj = $(obj).parents("li.nav-item");
+        var prevObj = parentsObj.prev();
+        var nextObj = parentsObj.next();
+
+
         if (type === 'up') {
-
+            if(prevObj.length <= 0){
+                stopMoveConfirm.open();
+                return;
+            }
         } else if (type === 'down') {
-
+            if(nextObj.length <= 0){
+                stopMoveConfirm.open();
+                return;
+            }
         } else if (type === 'edit') {
 
         } else if (type === 'remove') {
