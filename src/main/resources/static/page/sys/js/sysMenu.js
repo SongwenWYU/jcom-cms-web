@@ -22,8 +22,7 @@ $(document).ready(function () {
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 $.confirm({
-                    // title: '操作出错!',
-                    content: '操作出错！',
+                    content: '刷新出错！',
                     icon: 'fa fa-frown-o',
                     theme: 'modern',
                     closeIcon: true,
