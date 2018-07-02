@@ -17,7 +17,7 @@ $(document).ready(function () {
                 navUl.empty();
                 navUl.html(html);
                 $('.ttt').click(function () {
-                    alert(1)
+                    operation($(this));
                 });
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -53,10 +53,10 @@ $(document).ready(function () {
                     "        <i class=\"nav-icon fa " + menu.sysMenu.cssIcon + " \"></i>" +
                     "        <p>" + menu.sysMenu.manuName +
                     "            <div class=\"float-right\">" +
-                    "               <i data=type='up' class=\"fa fa-arrow-up ttt\"></i>" +
-                    "               <i data=type='down' class=\"fa fa-arrow-down ttt\"></i>" +
-                    "               <i data=type='edit' class=\"fa fa-pencil-square-o ttt\"></i>" +
-                    "               <i data=type='remove' class=\"fa fa-times ttt\"></i>" +
+                    "               <i data-type='up' class=\"fa fa-arrow-up ttt\"></i>" +
+                    "               <i data-type='down' class=\"fa fa-arrow-down ttt\"></i>" +
+                    "               <i data-type='edit' class=\"fa fa-pencil-square-o ttt\"></i>" +
+                    "               <i data-type='remove' class=\"fa fa-times ttt\"></i>" +
                     "            </div>" +
                     "        </p>" +
                     "    </a>" +
@@ -69,24 +69,39 @@ $(document).ready(function () {
                     "        <p>" +
                     "            <span>" + menu.sysMenu.manuName + "</span>" +
                     "            <div class=\"float-right\">" +
-                    "               <i data=type='up' class=\"fa fa-arrow-up ttt\"></i>" +
-                    "               <i data=type='down' class=\"fa fa-arrow-down ttt\"></i>" +
-                    "               <i data=type='edit' class=\"fa fa-pencil-square-o ttt\"></i>" +
-                    "               <i data=type='remove' class=\"fa fa-times ttt\"></i>" +
+                    "               <i data-type='up' class=\"fa fa-arrow-up ttt\"></i>" +
+                    "               <i data-type='down' class=\"fa fa-arrow-down ttt\"></i>" +
+                    "               <i data-type='edit' class=\"fa fa-pencil-square-o ttt\"></i>" +
+                    "               <i data-type='remove' class=\"fa fa-times ttt\"></i>" +
                     "               <i class=\"right fa fa-angle-left\"></i>" +
                     "            </div>" +
                     "        </p>" +
                     "    </a>" +
                     "    <ul class=\"nav nav-treeview\">" +
-                    itemChild+
+                    itemChild +
                     "    </ul>" +
                     "</li>";
 
             }
             menuHtml += item;
-            i ++;
+            i++;
         }
         return menuHtml;
+    }
+
+    function operation(obj) {
+        var type = $(obj).attr('data-type');
+        if (type === 'up') {
+
+        } else if (type === 'down') {
+
+        } else if (type === 'edit') {
+
+        } else if (type === 'remove') {
+
+        } else {
+            return;
+        }
     }
 
     refreshMenu();
