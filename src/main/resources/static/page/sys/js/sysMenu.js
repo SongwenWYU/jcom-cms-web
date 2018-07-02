@@ -113,9 +113,11 @@ $(document).ready(function () {
         var id = "";
         var oId = "";
         var parentsObj = $(obj).parents("li.nav-item");
+        if(parentsObj.length > 1){
+            parentsObj = $(parentsObj[0]);
+        }
         var prevObj = parentsObj.prev();
         var nextObj = parentsObj.next();
-
 
         if (type === 'up') {
             if(prevObj.length <= 0){
