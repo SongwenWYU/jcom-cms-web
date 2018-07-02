@@ -16,6 +16,9 @@ $(document).ready(function () {
                 var html = formatMenu(msg);
                 navUl.empty();
                 navUl.html(html);
+                $('.ttt').click(function () {
+                    alert(1)
+                });
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 $.confirm({
@@ -50,12 +53,12 @@ $(document).ready(function () {
                     "    <a href=\"#\" class=\"nav-link\">" +
                     "        <i class=\"nav-icon fa " + menu.sysMenu.cssIcon + " \"></i>" +
                     "        <p>" + menu.sysMenu.manuName +
-                    "            <i class=\"right\">" +
-                    "               <i class=\"fa fa-arrow-up\"></i>" +
-                    "               <i class=\"fa fa-arrow-down\"></i>" +
-                    "               <i class=\"fa fa-pencil-square-o\"></i>" +
-                    "               <i class=\"fa fa-times\"></i>" +
-                    "            </i>" +
+                    "            <div class=\"float-right\">" +
+                    "               <i data=type='up' class=\"fa fa-arrow-up ttt\"></i>" +
+                    "               <i data=type='down' class=\"fa fa-arrow-down ttt\"></i>" +
+                    "               <i data=type='edit' class=\"fa fa-pencil-square-o ttt\"></i>" +
+                    "               <i data=type='remove' class=\"fa fa-times ttt\"></i>" +
+                    "            </div>" +
                     "        </p>" +
                     "    </a>" +
                     "</li>";
@@ -67,10 +70,10 @@ $(document).ready(function () {
                     "        <p>" +
                     "            <span>" + menu.sysMenu.manuName + "</span>" +
                     "            <div class=\"float-right\">" +
-                    "               <i class=\"fa fa-arrow-up\"></i>" +
-                    "               <i class=\"fa fa-arrow-down\"></i>" +
-                    "               <i class=\"fa fa-pencil-square-o\"></i>" +
-                    "               <i class=\"fa fa-times\"></i>" +
+                    "               <i data=type='up' class=\"fa fa-arrow-up ttt\"></i>" +
+                    "               <i data=type='down' class=\"fa fa-arrow-down ttt\"></i>" +
+                    "               <i data=type='edit' class=\"fa fa-pencil-square-o ttt\"></i>" +
+                    "               <i data=type='remove' class=\"fa fa-times ttt\"></i>" +
                     "               <i class=\"right fa fa-angle-left\"></i>" +
                     "            </div>" +
                     "        </p>" +
@@ -88,4 +91,5 @@ $(document).ready(function () {
     }
 
     refreshMenu();
+
 });
