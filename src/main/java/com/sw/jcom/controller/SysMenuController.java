@@ -1,19 +1,23 @@
 package com.sw.jcom.controller;
 
+import com.sw.jcom.common.Contents;
 import com.sw.jcom.domain.entity.ResultEntity;
 import com.sw.jcom.domain.entity.SysMenuMap;
 import com.sw.jcom.domain.model.SysMenu;
+import com.sw.jcom.domain.model.SysUser;
 import com.sw.jcom.service.SysMenuService;
-import org.apache.commons.lang3.ArrayUtils;
+import com.sw.jcom.service.SysUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 /**
@@ -29,6 +33,9 @@ public class SysMenuController {
 
     @Autowired
     private SysMenuService sysMenuService;
+
+    @Autowired
+    private SysUserService sysUserService;
 
     @RequestMapping("/au/menu")
     public String getPage(){
@@ -121,6 +128,42 @@ public class SysMenuController {
 
         int addCount = sysMenuService.insert(sysMenu);
         if (addCount > 0) {
+            return new ResultEntity(ResultEntity.Code.OK);
+        }
+        return new ResultEntity(ResultEntity.Code.ERROR_ADD);
+    }
+
+    /**
+     * 上下移动菜单
+     * @param id
+     * @param oId
+     * @return
+     */
+    @PostMapping("/au/menu/add")
+    @ResponseBody
+    public ResultEntity order(Integer id, Integer oId, HttpSession httpSession){
+        if(id == null || oId == null){
+            return new ResultEntity(ResultEntity.Code.ERROR_EMPTY);
+        }
+        UserDetails userDetails = (UserDetails) httpSession.getAttribute(Contents.SESSION_USERDETAIL);
+        String username = userDetails.getUsername();
+        SysUser user = sysUserService.selectByUsername(username);
+        SysMenu sysMenu = sysMenuService.selectByPrimaryKey(id);
+        SysMenu sysMenuO = sysMenuService.selectByPrimaryKey(oId);
+        Integer order = sysMenu.getMenuOrder();
+        Integer oOrder = sysMenuO.getMenuOrder();
+        sysMenu.setMenuOrder(oOrder);
+        sysMenuO.setMenuOrder(order);
+        Date now = new Date();
+        sysMenu.setGmtModified(now);
+        sysMenuO.setGmtModified(now);
+        sysMenu.setGmtUserId(user.getId());
+        sysMenuO.setGmtUserId(user.getId());
+
+        int updateCount = sysMenuService.updateByPrimaryKeySelective(sysMenu);
+        updateCount += sysMenuService.updateByPrimaryKeySelective(sysMenuO);
+
+        if (updateCount > 1) {
             return new ResultEntity(ResultEntity.Code.OK);
         }
         return new ResultEntity(ResultEntity.Code.ERROR_ADD);
