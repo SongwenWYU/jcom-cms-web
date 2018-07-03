@@ -139,7 +139,7 @@ public class SysMenuController {
      * @param oId
      * @return
      */
-    @PostMapping("/au/menu/add")
+    @PostMapping("/au/menu/order")
     @ResponseBody
     public ResultEntity order(Integer id, Integer oId, HttpSession httpSession){
         if(id == null || oId == null){

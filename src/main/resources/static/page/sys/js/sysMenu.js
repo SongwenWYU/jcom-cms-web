@@ -48,7 +48,7 @@ $(document).ready(function () {
             var menu = sysMenuMaps[sysMenuMap];
             var item = "";
             if (!menu.parent) {
-                item = "<li class=\"nav-item\">" +
+                item = "<li class=\"nav-item\" data-id='"+ menu.sysMenu.id +"'>" +
                     "    <a href=\"#\" class=\"nav-link\">" +
                     "        <i class=\"nav-icon fa " + menu.sysMenu.cssIcon + " \"></i>" +
                     "        <p>" + menu.sysMenu.manuName +
@@ -63,7 +63,7 @@ $(document).ready(function () {
                     "</li>";
             } else {
                 var itemChild = formatMenu(menu.sysMenuMaps);
-                item = "<li class=\"nav-item has-treeview\">" +
+                item = "<li class=\"nav-item has-treeview\" data-id='"+ menu.sysMenu.id +"'>" +
                     "    <a href=\"#\" class=\"nav-link\">" +
                     "        <i class=\"nav-icon fa " + menu.sysMenu.cssIcon + "\"></i>" +
                     "        <p>" +
@@ -116,6 +116,7 @@ $(document).ready(function () {
         if(parentsObj.length > 1){
             parentsObj = $(parentsObj[0]);
         }
+        id = parentsObj.attr("data-id");
         var prevObj = parentsObj.prev();
         var nextObj = parentsObj.next();
 
@@ -124,15 +125,19 @@ $(document).ready(function () {
                 stopMoveConfirm.open();
                 return;
             }
+            oId = prevObj.attr("data-id");
+            url = baseUrl + "/au/menu/order";
         } else if (type === 'down') {
             if(nextObj.length <= 0){
                 stopMoveConfirm.open();
                 return;
             }
+            oId = nextObj.attr("data-id");
+            url = baseUrl + "/au/menu/order";
         } else if (type === 'edit') {
-
+            url = baseUrl + "/au/menu/update";
         } else if (type === 'remove') {
-
+            url = baseUrl + "/au/menu/delete";
         } else {
             return;
         }
