@@ -48,7 +48,7 @@ $(document).ready(function () {
             var menu = sysMenuMaps[sysMenuMap];
             var item = "";
             if (!menu.parent) {
-                item = "<li class=\"nav-item\" data-id='"+ menu.sysMenu.id +"'>" +
+                item = "<li class=\"nav-item\" data-id='" + menu.sysMenu.id + "'>" +
                     "    <a href=\"#\" class=\"nav-link\">" +
                     "        <i class=\"nav-icon fa " + menu.sysMenu.cssIcon + " \"></i>" +
                     "        <p>" + menu.sysMenu.manuName +
@@ -63,7 +63,7 @@ $(document).ready(function () {
                     "</li>";
             } else {
                 var itemChild = formatMenu(menu.sysMenuMaps);
-                item = "<li class=\"nav-item has-treeview\" data-id='"+ menu.sysMenu.id +"'>" +
+                item = "<li class=\"nav-item has-treeview\" data-id='" + menu.sysMenu.id + "'>" +
                     "    <a href=\"#\" class=\"nav-link\">" +
                     "        <i class=\"nav-icon fa " + menu.sysMenu.cssIcon + "\"></i>" +
                     "        <p>" +
@@ -113,33 +113,139 @@ $(document).ready(function () {
         var id = "";
         var oId = "";
         var parentsObj = $(obj).parents("li.nav-item");
-        if(parentsObj.length > 1){
+        if (parentsObj.length > 1) {
             parentsObj = $(parentsObj[0]);
         }
         id = parentsObj.attr("data-id");
         var prevObj = parentsObj.prev();
         var nextObj = parentsObj.next();
 
+        var data;
         if (type === 'up') {
-            if(prevObj.length <= 0){
+            if (prevObj.length <= 0) {
                 stopMoveConfirm.open();
                 return;
             }
             oId = prevObj.attr("data-id");
+            data = {id: id, oId: oId};
             url = baseUrl + "/au/menu/order";
         } else if (type === 'down') {
-            if(nextObj.length <= 0){
+            if (nextObj.length <= 0) {
                 stopMoveConfirm.open();
                 return;
             }
             oId = nextObj.attr("data-id");
+            data = {id: id, oId: oId};
             url = baseUrl + "/au/menu/order";
         } else if (type === 'edit') {
             url = baseUrl + "/au/menu/update";
+            data = {id: id};
         } else if (type === 'remove') {
             url = baseUrl + "/au/menu/delete";
+            data = {id: id};
         } else {
             return;
+        }
+
+        if (type === "edit") {
+
+        } else if (type === "remove") {
+            $.confirm({
+                title: '删除!',
+                content: '确认继续执行删除操作？',
+                icon: 'fa fa-exclamation',
+                theme: 'modern',
+                closeIcon: true,
+                animation: 'scale',
+                type: 'orange',
+                buttons: {
+                    ok: {
+                        text: "删除",
+                        btnClass: "btn btn-warning",
+                        // keys: ['enter'],
+                        action: function(){
+                            $.confirm({
+                                title: '操作结果',
+                                icon: 'fa fa-info',
+                                theme: 'modern',
+                                closeIcon: true,
+                                animation: 'scale',
+                                type: "blue",
+                                content: function () {
+                                    var self = this;
+                                    return $.ajax({
+                                        method: 'POST',
+                                        dataType: "json",
+                                        url: url,
+                                        data: data
+                                    }).done(function (msg) {
+                                        if (msg.code === 200) {
+                                            self.setContent('操作成功！');
+                                            self.setIcon('fa fa-smile-o');
+                                            self.setType("green");
+                                            refreshMenu();
+                                        } else {
+                                            self.setContent(content);
+                                            self.setIcon('fa fa-frown-o');
+                                            self.setType("red");
+                                        }
+                                    }).fail(function(){
+                                        self.setContent('操作出错！');
+                                        self.setIcon('fa fa-frown-o');
+                                        self.setType("red");
+                                    });
+                                }
+                            });
+                        }
+                    },
+                    cancel: {
+                        text: "取消",
+                        keys: ['esc']
+                    }
+                }
+            });
+
+        } else {
+            $.confirm({
+                title: '操作结果',
+                icon: 'fa fa-info',
+                theme: 'modern',
+                closeIcon: true,
+                animation: 'scale',
+                // type: "blue",
+                autoClose: 'ok|3000',
+                buttons: {
+                    ok: {
+                        text: "确定",
+                        btnClass: "btn btn-primary",
+                        keys: ['enter', 'esc']
+                    }
+                },
+                content: function () {
+                    var self = this;
+                    return $.ajax({
+                        method: 'POST',
+                        dataType: "json",
+                        url: url,
+                        data: data
+                    }).done(function (msg) {
+                        if (msg.code === 200) {
+                            self.setContent('操作成功！');
+                            self.setIcon('fa fa-smile-o');
+                            self.setType("green");
+                            refreshMenu();
+                        } else {
+                            self.setContent(content);
+                            self.setIcon('fa fa-frown-o');
+                            self.setType("red");
+                        }
+                    }).fail(function(){
+                        self.setContent('操作出错！');
+                        self.setIcon('fa fa-frown-o');
+                        self.setType("red");
+                    });
+                }
+            });
         }
     }
 
