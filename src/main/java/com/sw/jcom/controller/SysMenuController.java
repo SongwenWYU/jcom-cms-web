@@ -62,6 +62,16 @@ public class SysMenuController {
         return new ResultEntity(ResultEntity.Code.ERROR_UPDATE);
     }
 
+    @PostMapping("/au/menu/select")
+    @ResponseBody
+    public SysMenu selectById(Integer id){
+        if(id == null){
+            return new SysMenu();
+        }
+
+        return sysMenuService.selectByPrimaryKey(id);
+    }
+
     @PostMapping("/au/menu/delete")
     @ResponseBody
     public ResultEntity delete(Integer id){
