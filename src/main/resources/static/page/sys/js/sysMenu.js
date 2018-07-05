@@ -4,7 +4,26 @@ $(document).ready(function () {
         refreshMenu();
     });
     $('#add').click(function () {
+        // 重置表单
+        document.getElementById("menuForm").reset();
+        $('#menuModal h5').html('新增菜单');
+        $('#menuModal').modal({
+            keyboard: false,
+            backdrop: 'static'
+        });
+    });
+    $('#formSubmit').click(function () {
+        $('#menuForm').submit();
+    });
 
+
+    $("#menuType").change(function () {
+        var val = $(this).val();
+        if(val === 'TYPE_DROPDOWN'){
+            $('#url').attr("disabled",true);
+        } else {
+            $('#url').attr("disabled",false);
+        }
     });
 
     function refreshMenu() {
@@ -38,6 +57,25 @@ $(document).ready(function () {
                 });
             }
         });
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: baseUrl + "/au/menu/select/parent",
+            success: function (msg) {
+                var parent = $("#parentId");
+                parent.empty();
+                parent.append("<option value=\"0\">无</option>");
+                for (var menuParent in msg) {
+                    var menu = msg[menuParent];
+                    parent.append("<option value=\""+ menu.id + "\">"+ menu.manuName +"</option>");
+
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.error(errorThrown);
+            }
+        });
+
     }
 
 
@@ -163,7 +201,7 @@ $(document).ready(function () {
                         text: "删除",
                         btnClass: "btn btn-warning",
                         // keys: ['enter'],
-                        action: function(){
+                        action: function () {
                             $.confirm({
                                 title: '操作结果',
                                 icon: 'fa fa-info',
@@ -189,7 +227,7 @@ $(document).ready(function () {
                                             self.setIcon('fa fa-frown-o');
                                             self.setType("red");
                                         }
-                                    }).fail(function(){
+                                    }).fail(function () {
                                         self.setContent('操作出错！');
                                         self.setIcon('fa fa-frown-o');
                                         self.setType("red");
@@ -239,7 +277,7 @@ $(document).ready(function () {
                             self.setIcon('fa fa-frown-o');
                             self.setType("red");
                         }
-                    }).fail(function(){
+                    }).fail(function () {
                         self.setContent('操作出错！');
                         self.setIcon('fa fa-frown-o');
                         self.setType("red");
