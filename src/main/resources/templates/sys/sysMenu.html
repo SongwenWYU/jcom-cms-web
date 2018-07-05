@@ -33,7 +33,7 @@
                                         <div class="form-row align-items-center col-12">
                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                 <button type="button" class="btn btn-success" id="refresh">刷新</button>
-                                                <button type="button" class="btn btn-info" id="add">添加</button>
+                                                <button type="button" class="btn btn-info" id="add" >添加</button>
                                             </div>
                                         </div>
                                     </form>
@@ -95,6 +95,60 @@
 
 </div>
 <!--</div>-->
+
+<!-- Modal -->
+<div class="modal fade" id="menuModal" tabindex="-1" role="dialog" aria-labelledby="menuModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="menuModalLabel">新增菜单</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="menuForm">
+                    <div class="form-group">
+                        <label for="manuName">菜单名称</label>
+                        <input type="text" value="" class="form-control" id="manuName" placeholder="菜单名称">
+                    </div>
+                    <div class="form-group">
+                        <label for="menuType">类型</label>
+                        <select id="menuType" class="form-control">
+                            <option value="TYPE_PAGE">页面</option>
+                            <option value="TYPE_DROPDOWN">父节点</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="url">路径</label>
+                        <input type="text" value="" class="form-control" id="url" placeholder="路径">
+                    </div>
+                    <div class="form-group">
+                        <label for="cssIcon">图标</label>
+                        <input type="text" value="" class="form-control" id="cssIcon" placeholder="图标">
+                    </div>
+                    <div class="form-group">
+                        <label for="blank">是否新标签页打开</label>
+                        <select id="blank" class="form-control">
+                            <option value="0">否</option>
+                            <option value="1">是</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="parentId">父级菜单</label>
+                        <select id="parentId" class="form-control">
+                            <option value="0">无</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-sm menu-item" data-dismiss="modal">提交</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script th:src="@{/page/sys/js/sysMenu.js}"></script>
 </body>
 </html>
