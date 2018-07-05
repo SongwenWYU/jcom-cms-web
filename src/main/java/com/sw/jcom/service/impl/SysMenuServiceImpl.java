@@ -62,6 +62,11 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
+    public List<SysMenu> selectParent() {
+        return sysMenuMapper.selectParent();
+    }
+
+    @Override
     public List<SysMenu> selectChildsByParentId(Integer id) {
         return sysMenuMapper.selectChildsByParentId(id);
     }

@@ -31,6 +31,8 @@ public interface SysMenuMapper {
 
     List<SysMenu> selectAll();
 
+    List<SysMenu> selectParent();
+
     int updateByPrimaryKeySelective(SysMenu record);
 
     int updateByPrimaryKey(SysMenu record);

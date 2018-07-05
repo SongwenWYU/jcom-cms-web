@@ -72,6 +72,12 @@ public class SysMenuController {
         return sysMenuService.selectByPrimaryKey(id);
     }
 
+    @PostMapping("/au/menu/select/parent")
+    @ResponseBody
+    public List<SysMenu> selectParent(){
+        return sysMenuService.selectParent();
+    }
+
     @PostMapping("/au/menu/delete")
     @ResponseBody
     public ResultEntity delete(Integer id){

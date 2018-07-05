@@ -29,6 +29,7 @@ public interface SysMenuService {
     SysMenu selectByPrimaryKey(Integer id);
 
     List<SysMenu> selectByIds(Integer[] ids);
+    List<SysMenu> selectParent();
 
     /**
      * 查询所有孩子节点
