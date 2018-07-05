@@ -46,6 +46,13 @@
         <include refid="Base_Column_List"/>
         from sys_menu
     </select>
+    <select id="selectParent" resultMap="BaseResultMap">
+        select
+        id, manu_name, css_icon
+        from sys_menu
+        where is_parent=1
+        order by menu_order
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from sys_menu
     where id = #{id,jdbcType=INTEGER}
