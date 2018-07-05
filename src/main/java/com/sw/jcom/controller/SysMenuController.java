@@ -38,21 +38,21 @@ public class SysMenuController {
     private SysUserService sysUserService;
 
     @RequestMapping("/au/menu")
-    public String getPage(){
+    public String getPage() {
         return SysMenuController.thisPage;
     }
 
     @PostMapping("/au/menu/getAll")
     @ResponseBody
-    public TreeSet<SysMenuMap> getAllMenu(){
+    public TreeSet<SysMenuMap> getAllMenu() {
         List<SysMenu> sysMenuList = sysMenuService.selectAll();
         return sysMenuService.menuFormat(sysMenuList);
     }
 
     @PostMapping("/au/menu/update")
     @ResponseBody
-    public ResultEntity update(SysMenu sysMenu){
-        if(StringUtils.isBlank(sysMenu.getMenuType()) || StringUtils.isBlank(sysMenu.getManuName())){
+    public ResultEntity update(SysMenu sysMenu) {
+        if (StringUtils.isBlank(sysMenu.getMenuType()) || StringUtils.isBlank(sysMenu.getManuName())) {
             return new ResultEntity(ResultEntity.Code.ERROR_EMPTY);
         }
         int count = sysMenuService.updateByPrimaryKeySelective(sysMenu);
@@ -64,8 +64,8 @@ public class SysMenuController {
 
     @PostMapping("/au/menu/select")
     @ResponseBody
-    public SysMenu selectById(Integer id){
-        if(id == null){
+    public SysMenu selectById(Integer id) {
+        if (id == null) {
             return new SysMenu();
         }
 
@@ -74,18 +74,18 @@ public class SysMenuController {
 
     @PostMapping("/au/menu/select/parent")
     @ResponseBody
-    public List<SysMenu> selectParent(){
+    public List<SysMenu> selectParent() {
         return sysMenuService.selectParent();
     }
 
     @PostMapping("/au/menu/delete")
     @ResponseBody
-    public ResultEntity delete(Integer id){
-        if(id == null){
+    public ResultEntity delete(Integer id) {
+        if (id == null) {
             return new ResultEntity(ResultEntity.Code.ERROR_EMPTY);
         }
         // 校验删除的菜单是否有子菜单
-        if(sysMenuService.selectChildsByParentId(id).size() > 0){
+        if (sysMenuService.selectChildsByParentId(id).size() > 0) {
             return new ResultEntity(ResultEntity.Code.MENU_HAVA_CHILD);
         }
 
@@ -98,28 +98,29 @@ public class SysMenuController {
 
     /**
      * 删除菜单，包括子菜单
+     *
      * @param id
      * @return
      */
     @PostMapping("/au/menu/delete/all")
     @ResponseBody
-    public ResultEntity deleteAll(Integer id){
-        if(id == null){
+    public ResultEntity deleteAll(Integer id) {
+        if (id == null) {
             return new ResultEntity(ResultEntity.Code.ERROR_EMPTY);
         }
         // 查询所有子菜单
         List<SysMenu> sysMenuList = sysMenuService.selectChildsByParentId(id);
         ListIterator<SysMenu> sysMenuIterator = sysMenuList.listIterator();
         List<Integer> idList = new ArrayList<>(0x00ff);
-        while (sysMenuIterator.hasNext()){
+        while (sysMenuIterator.hasNext()) {
             SysMenu sysMenu = sysMenuIterator.next();
             Integer menuId = sysMenu.getId();
             idList.add(menuId);
-            if(sysMenu.getParent() == 1){
+            if (sysMenu.getParent() == 1) {
                 List<SysMenu> chidMenuList = sysMenuService.selectChildsByParentId(menuId);
                 for (SysMenu childMenu : chidMenuList) {
                     idList.add(childMenu.getId());
-                    if(childMenu.getParent() == 1){
+                    if (childMenu.getParent() == 1) {
                         sysMenuIterator.add(childMenu);
                     }
                 }
@@ -137,10 +138,28 @@ public class SysMenuController {
 
     @PostMapping("/au/menu/add")
     @ResponseBody
-    public ResultEntity add(SysMenu sysMenu){
-        if(StringUtils.isBlank(sysMenu.getMenuType()) || StringUtils.isBlank(sysMenu.getManuName())){
+    public ResultEntity add(SysMenu sysMenu, HttpSession httpSession) {
+        if (StringUtils.isBlank(sysMenu.getMenuType()) || StringUtils.isBlank(sysMenu.getManuName())) {
             return new ResultEntity(ResultEntity.Code.ERROR_EMPTY);
         }
+        if (SysMenu.TYPE_PAGE.equals(sysMenu.getMenuType()) && StringUtils.isBlank(sysMenu.getUrl())) {
+            return new ResultEntity(ResultEntity.Code.MENU_URL_EMPTY);
+        }
+        Long order = System.currentTimeMillis();
+        sysMenu.setMenuOrder(order.intValue());
+        if (SysMenu.TYPE_DROPDOWN.equals(sysMenu.getMenuType())) {
+            sysMenu.setParent(Byte.parseByte("1"));
+        } else {
+            sysMenu.setParent(Byte.parseByte("0"));
+        }
+        Date date = new Date();
+        sysMenu.setGmtModified(date);
+        sysMenu.setGmtCreate(date);
+
+        UserDetails userDetails = (UserDetails) httpSession.getAttribute(Contents.SESSION_USERDETAIL);
+        String username = userDetails.getUsername();
+        SysUser user = sysUserService.selectByUsername(username);
+        sysMenu.setGmtUserId(user.getId());
 
         int addCount = sysMenuService.insert(sysMenu);
         if (addCount > 0) {
@@ -151,14 +170,15 @@ public class SysMenuController {
 
     /**
      * 上下移动菜单
+     *
      * @param id
      * @param oId
      * @return
      */
     @PostMapping("/au/menu/order")
     @ResponseBody
-    public ResultEntity order(Integer id, Integer oId, HttpSession httpSession){
-        if(id == null || oId == null){
+    public ResultEntity order(Integer id, Integer oId, HttpSession httpSession) {
+        if (id == null || oId == null) {
             return new ResultEntity(ResultEntity.Code.ERROR_EMPTY);
         }
         UserDetails userDetails = (UserDetails) httpSession.getAttribute(Contents.SESSION_USERDETAIL);

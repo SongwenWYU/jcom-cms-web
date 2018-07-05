@@ -24,6 +24,7 @@ public class ResultEntity {
         PASSWORD_NOT_EQUAL(10003, "原密码错误"),
         PASSWORD_UPDATE_ERROR(10004, "密码更新失败"),
         MENU_HAVA_CHILD(10203, "含有子菜单"),
+        MENU_URL_EMPTY(10204, "菜单路径为空"),
         ERROR_EMPTY(10101, "填写信息有空值"),
         ERROR_UPDATE(10102, "更新失败"),
         ERROR_ADD(10102, "新增失败"),

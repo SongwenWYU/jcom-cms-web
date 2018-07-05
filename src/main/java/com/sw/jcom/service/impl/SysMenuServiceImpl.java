@@ -115,6 +115,9 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public TreeSet<SysMenuMap> menuFormat(List<SysMenu> sysMenuList) {
+        if(sysMenuList == null){
+            return new TreeSet<SysMenuMap>();
+        }
         TreeSet<SysMenuMap> sysMenuMaps = new TreeSet<>(SysMenuMap.MENU_MAP_COMPARATOR);
         Map<Integer, SysMenuMap> sysMenuMapMap = new HashMap<>(0x00ff);
 

@@ -13,7 +13,47 @@ $(document).ready(function () {
         });
     });
     $('#formSubmit').click(function () {
-        $('#menuForm').submit();
+        var t = $('#menuForm').serialize();
+        $.confirm({
+            title: '操作结果',
+            icon: 'fa fa-info',
+            theme: 'modern',
+            closeIcon: true,
+            animation: 'scale',
+            buttons: {
+                ok: {
+                    text: "确定",
+                    btnClass: "btn btn-success",
+                    keys: ['enter', 'esc']
+                }
+            },
+            // type: "blue",
+            content: function () {
+                var self = this;
+                return $.ajax({
+                    method: 'POST',
+                    dataType: "json",
+                    url: baseUrl + "/au/menu/add",
+                    data: t
+                }).done(function (msg) {
+                    if (msg.code === 200) {
+                        self.setContent('操作成功！');
+                        self.setIcon('fa fa-smile-o');
+                        self.setType("green");
+                        $('#menuModal').modal('hide');
+                        refreshMenu();
+                    } else {
+                        self.setContent(msg.content);
+                        self.setIcon('fa fa-frown-o');
+                        self.setType("red");
+                    }
+                }).fail(function () {
+                    self.setContent('操作出错！');
+                    self.setIcon('fa fa-frown-o');
+                    self.setType("red");
+                });
+            }
+        });
     });
 
 
@@ -209,6 +249,13 @@ $(document).ready(function () {
                                 closeIcon: true,
                                 animation: 'scale',
                                 type: "blue",
+                                buttons: {
+                                    ok: {
+                                        text: "确定",
+                                        btnClass: "btn btn-success",
+                                        keys: ['enter', 'esc']
+                                    }
+                                },
                                 content: function () {
                                     var self = this;
                                     return $.ajax({
