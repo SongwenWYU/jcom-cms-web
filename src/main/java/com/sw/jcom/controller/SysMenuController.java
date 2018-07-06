@@ -52,7 +52,7 @@ public class SysMenuController {
     @PostMapping("/au/menu/update")
     @ResponseBody
     public ResultEntity update(SysMenu sysMenu) {
-        if (StringUtils.isBlank(sysMenu.getMenuType()) || StringUtils.isBlank(sysMenu.getManuName())) {
+        if (StringUtils.isBlank(sysMenu.getManuName())) {
             return new ResultEntity(ResultEntity.Code.ERROR_EMPTY);
         }
         int count = sysMenuService.updateByPrimaryKeySelective(sysMenu);
@@ -112,6 +112,7 @@ public class SysMenuController {
         List<SysMenu> sysMenuList = sysMenuService.selectChildsByParentId(id);
         ListIterator<SysMenu> sysMenuIterator = sysMenuList.listIterator();
         List<Integer> idList = new ArrayList<>(0x00ff);
+        idList.add(id);
         while (sysMenuIterator.hasNext()) {
             SysMenu sysMenu = sysMenuIterator.next();
             Integer menuId = sysMenu.getId();

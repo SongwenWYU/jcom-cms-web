@@ -4,16 +4,25 @@ $(document).ready(function () {
         refreshMenu();
     });
     $('#add').click(function () {
-        // 重置表单
-        document.getElementById("menuForm").reset();
         $('#menuModal h5').html('新增菜单');
         $('#menuModal').modal({
             keyboard: false,
             backdrop: 'static'
         });
     });
+    $('#menuModal').on('hidden.bs.modal', function (e) {
+        $('#url').attr("disabled", false);
+        $('#menuType').attr("disabled", false);
+
+        document.getElementById("menuForm").reset();
+    });
     $('#formSubmit').click(function () {
         var t = $('#menuForm').serialize();
+        var url = baseUrl + "/au/menu/add";
+        if ($('#id').val() !== '') {
+            url = baseUrl + "/au/menu/update";
+        }
+
         $.confirm({
             title: '操作结果',
             icon: 'fa fa-info',
@@ -33,7 +42,7 @@ $(document).ready(function () {
                 return $.ajax({
                     method: 'POST',
                     dataType: "json",
-                    url: baseUrl + "/au/menu/add",
+                    url: url,
                     data: t
                 }).done(function (msg) {
                     if (msg.code === 200) {
@@ -59,10 +68,10 @@ $(document).ready(function () {
 
     $("#menuType").change(function () {
         var val = $(this).val();
-        if(val === 'TYPE_DROPDOWN'){
-            $('#url').attr("disabled",true);
+        if (val === 'TYPE_DROPDOWN') {
+            $('#url').attr("disabled", true);
         } else {
-            $('#url').attr("disabled",false);
+            $('#url').attr("disabled", false);
         }
     });
 
@@ -107,7 +116,7 @@ $(document).ready(function () {
                 parent.append("<option value=\"0\">无</option>");
                 for (var menuParent in msg) {
                     var menu = msg[menuParent];
-                    parent.append("<option value=\""+ menu.id + "\">"+ menu.manuName +"</option>");
+                    parent.append("<option value=\"" + menu.id + "\">" + menu.manuName + "</option>");
 
                 }
             },
@@ -226,7 +235,7 @@ $(document).ready(function () {
         }
 
         if (type === "edit") {
-
+            edit(id);
         } else if (type === "remove") {
             $.confirm({
                 title: '删除!',
@@ -269,8 +278,11 @@ $(document).ready(function () {
                                             self.setIcon('fa fa-smile-o');
                                             self.setType("green");
                                             refreshMenu();
+                                        } else if (msg.code === 10203) {
+                                            self.close();
+                                            deleteAll(id);
                                         } else {
-                                            self.setContent(content);
+                                            self.setContent(msg.content);
                                             self.setIcon('fa fa-frown-o');
                                             self.setType("red");
                                         }
@@ -320,7 +332,7 @@ $(document).ready(function () {
                             self.setType("green");
                             refreshMenu();
                         } else {
-                            self.setContent(content);
+                            self.setContent(msg.content);
                             self.setIcon('fa fa-frown-o');
                             self.setType("red");
                         }
@@ -332,6 +344,112 @@ $(document).ready(function () {
                 }
             });
         }
+    }
+
+    function edit(id) {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: baseUrl + "/au/menu/select",
+            data: {
+                id: id
+            },
+            success: function (msg) {
+                for (var field in msg) {
+                    var id = "" + field;
+                    var data = msg[field];
+                    $("#" + id).val(data);
+                }
+                $("#menuType").change();
+                $('#menuModal h5').html('编辑菜单');
+                $('#menuType').attr("disabled", true);
+                $('#menuModal').modal({
+                    keyboard: false,
+                    backdrop: 'static'
+                });
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $.confirm({
+                    content: '获取数据出错！',
+                    icon: 'fa fa-frown-o',
+                    theme: 'modern',
+                    closeIcon: true,
+                    animation: 'scale',
+                    type: 'red',
+                    buttons: {
+                        ok: {
+                            text: "确定",
+                            btnClass: "btn btn-danger",
+                            keys: ['enter']
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    function deleteAll(id) {
+        $.confirm({
+            title: '删除!',
+            content: '含有子菜单，是否一同删除子菜单？',
+            icon: 'fa fa-exclamation-triangle',
+            theme: 'modern',
+            closeIcon: true,
+            animation: 'scale',
+            type: 'orange',
+            buttons: {
+                ok: {
+                    text: "删除所有",
+                    btnClass: "btn btn-warning",
+                    // keys: ['enter'],
+                    action: function () {
+                        $.confirm({
+                            title: '操作结果',
+                            icon: 'fa fa-info',
+                            theme: 'modern',
+                            closeIcon: true,
+                            animation: 'scale',
+                            type: "blue",
+                            buttons: {
+                                ok: {
+                                    text: "确定",
+                                    btnClass: "btn btn-success",
+                                    keys: ['enter', 'esc']
+                                }
+                            },
+                            content: function () {
+                                var self = this;
+                                return $.ajax({
+                                    method: 'POST',
+                                    dataType: "json",
+                                    url: baseUrl + "/au/menu/delete/all",
+                                    data: {id: id}
+                                }).done(function (msg) {
+                                    if (msg.code === 200) {
+                                        self.setContent('操作成功！');
+                                        self.setIcon('fa fa-smile-o');
+                                        self.setType("green");
+                                        refreshMenu();
+                                    } else {
+                                        self.setContent(msg.content);
+                                        self.setIcon('fa fa-frown-o');
+                                        self.setType("red");
+                                    }
+                                }).fail(function () {
+                                    self.setContent('操作出错！');
+                                    self.setIcon('fa fa-frown-o');
+                                    self.setType("red");
+                                });
+                            }
+                        });
+                    }
+                },
+                cancel: {
+                    text: "取消",
+                    keys: ['esc']
+                }
+            }
+        });
     }
 
     refreshMenu();
