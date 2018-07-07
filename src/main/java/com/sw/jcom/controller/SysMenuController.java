@@ -48,6 +48,15 @@ public class SysMenuController {
         List<SysMenu> sysMenuList = sysMenuService.selectAll();
         return sysMenuService.menuFormat(sysMenuList);
     }
+    @PostMapping("/au/menu/getAll")
+    @ResponseBody
+    public List<SysMenu> getRoleMenu(Integer roleId) {
+        if(roleId == null){
+            return new ArrayList<>();
+        }
+        Integer[] roleIds = {roleId};
+        return sysMenuService.selectByRoleIds(roleIds);
+    }
 
     @PostMapping("/au/menu/update")
     @ResponseBody
