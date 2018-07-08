@@ -48,7 +48,7 @@ public class SysMenuController {
         List<SysMenu> sysMenuList = sysMenuService.selectAll();
         return sysMenuService.menuFormat(sysMenuList);
     }
-    @PostMapping("/au/menu/getAll")
+    @PostMapping("/au/menu/getRole")
     @ResponseBody
     public List<SysMenu> getRoleMenu(Integer roleId) {
         if(roleId == null){

@@ -1,5 +1,7 @@
 package com.sw.jcom.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.sw.jcom.domain.mapper.SysRoleMapper;
 import com.sw.jcom.domain.model.SysRole;
 import com.sw.jcom.service.SysRoleService;
@@ -42,6 +44,13 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public List<SysRole> selectAll() {
         return sysRoleMapper.selectAll();
+    }
+
+    @Override
+    public PageInfo<SysRole> selectAll(int offset, int limit) {
+        PageHelper.offsetPage(offset, limit);
+        List<SysRole> sysRoleList = sysRoleMapper.selectAll();
+        return new PageInfo<>(sysRoleList);
     }
 
     @Override
