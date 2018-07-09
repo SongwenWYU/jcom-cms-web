@@ -40,9 +40,97 @@ $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
     } );
 
-    $("#roleTable").on('click', '.user-operate',function() {
-        // 添加点击事件
-        
+    var menuDiv = $('#menu');
+    var model = $('#menuModel').modal({
+        keyboard: false,
+        show: false,
+        backdrop: 'static',
+        boolean: false
+
     });
+    $("#roleTable").on('click', '.role-operate',function() {
+        // 添加点击事件
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: baseUrl + "/au/menu/getAll",
+            success: function (msg) {
+                var html = formatMenu(msg);
+                menuDiv.empty();
+                menuDiv.html(html);
+                model.modal('show');
+                model.modal('handleUpdate');
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $.confirm({
+                    content: '刷新出错！',
+                    icon: 'fa fa-frown-o',
+                    theme: 'modern',
+                    closeIcon: true,
+                    animation: 'scale',
+                    type: 'red',
+                    buttons: {
+                        ok: {
+                            text: "确定",
+                            btnClass: "btn btn-danger",
+                            keys: ['enter']
+                        }
+                    }
+                });
+            }
+        });
+
+    });
+    $("#query").click(function () {
+        table.ajax.reload(null, false);
+    });
+
+    function formatMenu(sysMenuMaps) {
+        var menuHtml = "";
+        var i = 1;
+        for (var sysMenuMap in sysMenuMaps) {
+            var menu = sysMenuMaps[sysMenuMap];
+            var item = "";
+            if (!menu.parent) {
+                item = "<li class=\"nav-item\" data-id='" + menu.sysMenu.id + "'>" +
+                    "    <a href=\"#\" class=\"nav-link\">" +
+                    "        <i class=\"nav-icon fa " + menu.sysMenu.cssIcon + " \"></i>" +
+                    "        <p>" + menu.sysMenu.manuName +
+                    "            <div class=\"float-right\">" +
+                    "               <i data-type='up' class=\"fa fa-arrow-up ttt\"></i>" +
+                    "               <i data-type='down' class=\"fa fa-arrow-down ttt\"></i>" +
+                    "               <i data-type='edit' class=\"fa fa-pencil-square-o ttt\"></i>" +
+                    "               <i data-type='remove' class=\"fa fa-times ttt\"></i>" +
+                    "            </div>" +
+                    "        </p>" +
+                    "    </a>" +
+                    "</li>";
+            } else {
+                var itemChild = formatMenu(menu.sysMenuMaps);
+                item = "<li class=\"nav-item has-treeview\" data-id='" + menu.sysMenu.id + "'>" +
+                    "    <a href=\"#\" class=\"nav-link\">" +
+                    "        <i class=\"nav-icon fa " + menu.sysMenu.cssIcon + "\"></i>" +
+                    "        <p>" +
+                    "            <span>" + menu.sysMenu.manuName + "</span>" +
+                    "            <div class=\"float-right\">" +
+                    "               <i data-type='up' class=\"fa fa-arrow-up ttt\"></i>" +
+                    "               <i data-type='down' class=\"fa fa-arrow-down ttt\"></i>" +
+                    "               <i data-type='edit' class=\"fa fa-pencil-square-o ttt\"></i>" +
+                    "               <i data-type='remove' class=\"fa fa-times ttt\"></i>" +
+                    "               <i class=\"right fa fa-angle-left\"></i>" +
+                    "            </div>" +
+                    "        </p>" +
+                    "    </a>" +
+                    "    <ul class=\"nav nav-treeview\">" +
+                    itemChild +
+                    "    </ul>" +
+                    "</li>";
+
+            }
+            menuHtml += item;
+            i++;
+        }
+        return menuHtml;
+    }
 
 });
