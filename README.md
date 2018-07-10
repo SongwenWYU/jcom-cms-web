@@ -44,8 +44,8 @@ To Do List
 ----------
 
 * 角色管理
-* 用户管理
-* 菜单管理
+* ~~用户管理~~
+* ~~菜单管理~~
 * ~~index page~~
 * Add a Servlet, Filter, or Listener to an Application
 * ~~添加登录逻辑~~
