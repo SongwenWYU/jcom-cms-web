@@ -2,9 +2,124 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>$[Title]</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>角色管理</title>
+
+    <script th:replace="/common/bootstrap"></script>
+    <script th:replace="/common/adminlte"></script>
+    <script th:replace="/common/datatables"></script>
+    <script th:replace="/common/jquery-confirm"></script>
 </head>
-<body>
-role
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <!-- Content Wrapper. Contains page content -->
+    <!--<div class="content-wrapper">-->
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">角色管理</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <!-- 查询条件 -->
+                        <div class="row">
+                            <div class="card col-12">
+                                <div class="card-body">
+                                    <form class="form-inline">
+                                        <div class="form-row align-items-center col-12">
+                                            <!--<div class="form-group">-->
+                                                <!--<label class="col-auto col-form-label" for="username">用户名</label>-->
+                                                <!--<input type="text" class="form-control" id="username" name="username" placeholder="填写用户名">-->
+                                            <!--</div>-->
+                                            <!--<div class="form-group">-->
+                                                <!--<label class="col-auto col-form-label" for="nickname">昵称</label>-->
+                                                <!--<input type="text" class="form-control" id="nickname" name="nickname" placeholder="填写昵称">-->
+                                            <!--</div>-->
+                                            <div class="col-auto col-sm-6">
+                                                <button type="button" id="query" class="btn btn-primary btn-sm">查询</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="table-responsive">
+                            <!-- 表格-->
+                            <table id="roleTable" class="table table-bordered table-striped">
+
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+<!--</div>-->
+
+<div class="modal fade" id="menuModel" tabindex="-1" role="dialog" aria-labelledby="menuModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="menuModalLongTitle">菜单授权</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!--<div class="row col-12">-->
+                    <!-- Main Sidebar Container -->
+                    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+
+                        <!-- Sidebar -->
+                        <div class="sidebar">
+
+                            <!-- Sidebar Menu -->
+                            <nav class="mt-2">
+                                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                                    data-accordion="false" id="menu">
+                                    <!-- Add icons to the links using the .nav-icon class
+                                         with font-awesome or any other icon font library -->
+                                    <li class="nav-item">
+                                        <a href="#" data-url="/dashboard" class="nav-link menu-item active">
+                                            <i class="nav-icon fa fa-dashboard"></i>
+                                            <p>
+                                                Dashboard
+                                                <!--<span class="right badge badge-danger">New</span>-->
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="nav-icon fa fa-circle-o text-info"></i>
+                                            <p>Informational</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <!-- /.sidebar-menu -->
+                        </div>
+                        <!-- /.sidebar -->
+                    </aside>
+                <!--</div>-->
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/page/sys/js/sysRole.js}"></script>
 </body>
 </html>

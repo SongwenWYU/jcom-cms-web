@@ -1,5 +1,6 @@
 package com.sw.jcom.service;
 
+import com.github.pagehelper.PageInfo;
 import com.sw.jcom.domain.model.SysRole;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public interface SysRoleService {
     SysRole selectByPrimaryKey(Integer id);
 
     List<SysRole> selectAll();
+    PageInfo<SysRole> selectAll(int offset, int limit);
 
     int updateByPrimaryKeySelective(SysRole record);
 
