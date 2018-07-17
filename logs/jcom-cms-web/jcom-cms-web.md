@@ -1,0 +1,11 @@
+* 2018-7-17 21:52:30
+    - pro_pro 1--->n pro_pro_classify_batch n<---1 pro_classify,pro_batch
+    - pro_pro 1--->n pro_pro_label n<---n pro_label
+    - pro_pro 1--->1 pro_detail
+    - pro_pro 1--->n pro_location
+    - pro_location 需要拆分为仓库对应、货架对应表
+    - 需要新建单位表，给各个商品信息中附加单位信息
+    - 所有商品信息管理中需要注意删除的权限，目前可考虑加入归档功能，不开放删除功能，或只有管理员有删除功能
+    - 新建操作日志表，记录各个操作的数据信息（id,url,name,time,user,data）
+    - 新建销售记录表，记录每次销售信息（id,pro_pro_classify_batch_id,数量，单价，单位）
+    - 新建进货记录表，记录每次进货信息（id,pro_pro_classify_batch_id,数量，单价，单位）
