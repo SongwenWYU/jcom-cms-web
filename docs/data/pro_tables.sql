@@ -13,10 +13,10 @@ CREATE TABLE `pro_label` (
 `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
 `label_name` varchar(255) NULL COMMENT '标签名',
 `user_id` int(11) NULL COMMENT '所属用户',
-`gmt_create` varchar(255) NULL COMMENT '创建时间',
-`gmt_modified` varchar(255) NULL COMMENT '修改时间',
+`gmt_create` datetime NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+`gmt_modified` datetime NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
 `gmt_user_id` int(11) NULL COMMENT '修改用户',
-PRIMARY KEY (`id`) 
+PRIMARY KEY (`id`)
 )
 COMMENT = '标签表';
 CREATE TABLE `pro_pro` (
@@ -26,31 +26,29 @@ CREATE TABLE `pro_pro` (
 `gmt_create` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
 `gmt_modified` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
 `gmt_user_id` int(11) NULL,
-PRIMARY KEY (`id`) 
+PRIMARY KEY (`id`)
 )
 COMMENT = '商品表';
 CREATE TABLE `pro_batch` (
 `id` int(11) NOT NULL AUTO_INCREMENT,
 `batch_code` varchar(20) NULL COMMENT '批次号',
 `batch_name` varchar(255) NULL COMMENT '批次名称',
-`pro_cost` decimal(10,2) NULL COMMENT '成本价',
-`pro_retail_price` decimal(10,2) NULL COMMENT '零售价',
-`pro_count` int NULL COMMENT '商品总量',
-`pro_stock` int NULL COMMENT '库存',
 `gmt_create` datetime NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
 `gmt_modified` datetime NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
 `gmt_user_id` int(11) NULL COMMENT '修改人',
-PRIMARY KEY (`id`) 
+PRIMARY KEY (`id`)
 )
 COMMENT = '商品批次表';
 CREATE TABLE `pro_detail` (
 `id` int(11) NOT NULL AUTO_INCREMENT,
 `pro_id` int(11) NULL COMMENT '商品编号',
+`units` varchar(20) NULL COMMENT '单位',
+`units_desc` varchar(255) NULL COMMENT '单位描述',
 `pro_desc` text NULL COMMENT '商品描述信息',
 `gmt_create` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
 `gmt_modified` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
 `gmt_user_id` int(11) NULL,
-PRIMARY KEY (`id`) 
+PRIMARY KEY (`id`)
 )
 COMMENT = '商品详细信息';
 CREATE TABLE `pro_store` (
@@ -61,7 +59,7 @@ CREATE TABLE `pro_store` (
 `gmt_create` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
 `gmt_modified` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
 `gmt_user_id` int(11) NULL,
-PRIMARY KEY (`id`) 
+PRIMARY KEY (`id`)
 )
 COMMENT = '商店信息表';
 CREATE TABLE `pro_warehouse` (
@@ -71,31 +69,32 @@ CREATE TABLE `pro_warehouse` (
 `wh_location` varchar(255) NULL COMMENT '地理位置',
 `gmt_create` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
 `gmt_modified` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
-`gmt_user_id` int NULL,
-PRIMARY KEY (`id`) 
+`gmt_user_id` int(11) NULL,
+PRIMARY KEY (`id`)
 )
 COMMENT = '仓库信息表';
 CREATE TABLE `pro_warehouse_rack` (
 `id` int(11) NOT NULL,
 `warehouse_id` int(11) NULL COMMENT '仓库编号',
-`rack_code` varchar(20) NULL,
-`rack_desc` varchar(255) NULL,
-`rack_type` int NULL,
-PRIMARY KEY (`id`) 
+`rack_code` varchar(20) NULL COMMENT '货架编号',
+`rack_desc` varchar(255) NULL COMMENT '货架描述',
+`rack_type` int(11) NULL COMMENT '货架类型',
+`gmt_create` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+`gmt_modified` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+`gmt_user_id` int NULL,
+PRIMARY KEY (`id`)
 )
 COMMENT = '货架信息表';
-CREATE TABLE `pro_store1` (
-);
 CREATE TABLE `pro_store_rack` (
 `id` int(11) NOT NULL AUTO_INCREMENT,
 `store_id` int(11) NULL COMMENT '商店id',
-`rack_code` varchar(20) NULL,
-`rack_desc` varchar(255) NULL,
-`rack_type` int NULL,
+`rack_code` varchar(20) NULL COMMENT '货架编号',
+`rack_desc` varchar(255) NULL COMMENT '货架描述',
+`rack_type` int(11) NULL COMMENT '货架类型',
 `gmt_create` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
 `gmt_modified` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
 `gmt_user_id` int(11) NULL,
-PRIMARY KEY (`id`) 
+PRIMARY KEY (`id`)
 )
 COMMENT = '商店货架表';
 CREATE TABLE `pro_location` (
@@ -106,7 +105,7 @@ CREATE TABLE `pro_location` (
 `gmt_create` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
 `gmt_modified` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
 `gmt_user_id` int(11) NULL,
-PRIMARY KEY (`id`) 
+PRIMARY KEY (`id`)
 )
 COMMENT = '商品存放信息表';
 CREATE TABLE `pro_pro_classify_batch` (
@@ -114,10 +113,14 @@ CREATE TABLE `pro_pro_classify_batch` (
 `pro_id` int(11) NULL,
 `classify_id` int(11) NULL,
 `batch_id` int(11) NULL,
+`pro_cost` decimal(10,2) NULL COMMENT '成本价',
+`pro_retail_price` decimal(10,2) NULL COMMENT '零售价',
+`pro_count` int(10) NULL COMMENT '商品总量',
+`pro_stock` int(10) NULL COMMENT '库存',
 `gmt_create` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
-`gmt_modified` varchar(255) NULL,
+`gmt_modified` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
 `gmt_user_id` int(11) NULL,
-PRIMARY KEY (`id`) 
+PRIMARY KEY (`id`)
 );
 CREATE TABLE `pro_pro_label` (
 `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -126,18 +129,15 @@ CREATE TABLE `pro_pro_label` (
 `gmt_create` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
 `gmt_modified` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
 `gmt_user_id` int(11) NULL,
-PRIMARY KEY (`id`) 
+PRIMARY KEY (`id`)
 );
-
-ALTER TABLE `pro_classify` ADD CONSTRAINT `fk_pro_classify_pro_pro_classify_batch_1` FOREIGN KEY (`id`) REFERENCES `pro_pro_classify_batch` (`classify_id`);
-ALTER TABLE `pro_batch` ADD CONSTRAINT `fk_pro_batch_pro_pro_classify_batch_1` FOREIGN KEY (`id`) REFERENCES `pro_pro_classify_batch` (`batch_id`);
-ALTER TABLE `pro_label` ADD CONSTRAINT `fk_pro_label_pro_pro_label_1` FOREIGN KEY (`id`) REFERENCES `pro_pro_label` (`label_id`);
-ALTER TABLE `pro_pro` ADD CONSTRAINT `fk_pro_pro_pro_pro_classify_batch_1` FOREIGN KEY (`id`) REFERENCES `pro_pro_classify_batch` (`pro_id`);
-ALTER TABLE `pro_detail` ADD CONSTRAINT `fk_pro_detail_pro_pro_1` FOREIGN KEY (`pro_id`) REFERENCES `pro_pro` (`id`);
-ALTER TABLE `pro_pro` ADD CONSTRAINT `fk_pro_pro_pro_pro_label_1` FOREIGN KEY (`id`) REFERENCES `pro_pro_label` (`pro_id`);
-ALTER TABLE `pro_warehouse` ADD CONSTRAINT `fk_pro_warehouse_pro_warehouse_rack_1` FOREIGN KEY (`id`) REFERENCES `pro_warehouse_rack` (`warehouse_id`);
-ALTER TABLE `pro_warehouse_rack` ADD CONSTRAINT `fk_pro_warehouse_rack_pro_location_1` FOREIGN KEY (`id`) REFERENCES `pro_location` (`wh_rack_id`);
-ALTER TABLE `pro_pro` ADD CONSTRAINT `fk_pro_pro_pro_location_1` FOREIGN KEY (`id`) REFERENCES `pro_location` (`pro_id`);
-ALTER TABLE `pro_store_rack` ADD CONSTRAINT `fk_pro_store_rack_pro_location_1` FOREIGN KEY (`id`) REFERENCES `pro_location` (`store_rack_id`);
-ALTER TABLE `pro_store` ADD CONSTRAINT `fk_pro_store_pro_store_rack_1` FOREIGN KEY (`id`) REFERENCES `pro_store_rack` (`store_id`);
-
+CREATE TABLE `pro_units` (
+`id` int(11) NOT NULL,
+`units` varchar(255) NULL COMMENT '单位符号',
+`units_desc` varchar(255) NULL COMMENT '单位描述',
+`gmt_create` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+`gmt_modified` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+`gmt_user_id` int NULL,
+PRIMARY KEY (`id`)
+)
+COMMENT = '单位表';
