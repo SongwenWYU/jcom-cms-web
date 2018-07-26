@@ -3,6 +3,7 @@ CREATE TABLE `pro_classify` (
 `classify_name` varchar(255) NOT NULL COMMENT '分类名称',
 `parent_id` int(11) NULL COMMENT '所属父类id',
 `user_id` int(11) NOT NULL COMMENT '所属用户',
+`status` int(11) NULL COMMENT '状态。-1：归档，1：未归档',
 `gmt_create` datetime NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
 `gmt_modified` datetime NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
 `gmt_user_id` int(11) NULL COMMENT '修改人',
