@@ -5,12 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.Serializable;
-import java.sql.Timestamp;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * sys_role_user
@@ -31,9 +33,9 @@ public class SysRoleUser implements Serializable {
 
     private Integer userId;
 
-    private Timestamp gmtCreate;
+    private Date gmtCreate;
 
-    private Timestamp gmtModified;
+    private Date gmtModified;
 
     private Integer gmtUserId;
 

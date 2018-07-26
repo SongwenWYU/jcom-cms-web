@@ -9,8 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * sys_user
@@ -73,12 +74,12 @@ public class SysUser implements Serializable {
     /**
      * 创建时间
      */
-    private Timestamp gmtCreate;
+    private Date gmtCreate;
 
     /**
      * 更新时间
      */
-    private Timestamp gmtModified;
+    private Date gmtModified;
 
     /**
      * 更新用户

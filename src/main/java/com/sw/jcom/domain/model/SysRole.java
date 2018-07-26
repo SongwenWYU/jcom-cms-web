@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * sys_role
@@ -54,12 +54,12 @@ public class SysRole implements Serializable {
      * 创建时间
      */
     @NotEmpty
-    private Timestamp gmtCreate;
+    private Date gmtCreate;
 
     /**
      * 更新时间
      */
-    private Timestamp gmtModified;
+    private Date gmtModified;
 
     /**
      * 更新用户

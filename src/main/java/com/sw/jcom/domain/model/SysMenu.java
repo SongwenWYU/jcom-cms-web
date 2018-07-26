@@ -10,7 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * sys_menu
@@ -80,12 +80,12 @@ public class SysMenu implements Serializable {
     /**
      * 创建时间
      */
-    private Timestamp gmtCreate;
+    private Date gmtCreate;
 
     /**
      * 更新时间
      */
-    private Timestamp gmtModified;
+    private Date gmtModified;
 
     /**
      * 更新人
