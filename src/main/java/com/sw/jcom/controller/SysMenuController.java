@@ -18,7 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.util.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.TreeSet;
 
 /**
  * @author songwen
@@ -162,9 +166,10 @@ public class SysMenuController {
         } else {
             sysMenu.setParent(Byte.parseByte("0"));
         }
-        Date date = new Date();
-        sysMenu.setGmtModified(date);
-        sysMenu.setGmtCreate(date);
+
+        LocalDateTime now = LocalDateTime.now();
+        sysMenu.setGmtModified(now);
+        sysMenu.setGmtCreate(now);
 
         UserDetails userDetails = (UserDetails) httpSession.getAttribute(Contents.SESSION_USERDETAIL);
         String username = userDetails.getUsername();
@@ -200,7 +205,7 @@ public class SysMenuController {
         Integer oOrder = sysMenuO.getMenuOrder();
         sysMenu.setMenuOrder(oOrder);
         sysMenuO.setMenuOrder(order);
-        Date now = new Date();
+        LocalDateTime now = LocalDateTime.now();
         sysMenu.setGmtModified(now);
         sysMenuO.setGmtModified(now);
         sysMenu.setGmtUserId(user.getId());
