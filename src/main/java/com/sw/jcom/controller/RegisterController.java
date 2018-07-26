@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -40,7 +41,8 @@ public class RegisterController {
             return new ResultEntity(ResultEntity.Code.USER_REG_EXIST);
         }
         sysUser.setState(SysUser.STATE_NORMAL);
-        Date now = new Date();
+        long date = System.currentTimeMillis();
+        Timestamp now = new Timestamp(date);
         sysUser.setGmtCreate(now);
         sysUser.setGmtModified(now);
         int addCount = sysUserService.insertSelective(sysUser);
