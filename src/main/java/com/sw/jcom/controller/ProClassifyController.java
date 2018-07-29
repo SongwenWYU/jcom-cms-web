@@ -95,5 +95,30 @@ public class ProClassifyController extends BaseController{
         return new ResultEntity(ResultEntity.Code.ERROR_UPDATE);
     }
 
+    @PostMapping("add")
+    public ResultEntity insert(ProClassify proClassify, HttpSession httpSession) throws JcomException {
+        if(StringUtils.isBlank(proClassify.getClassifyName())){
+            return new ResultEntity(ResultEntity.Code.ERROR_EMPTY);
+        }
+        if (proClassify.getStatus() != 1 && proClassify.getStatus() != -1){
+            return new ResultEntity(ResultEntity.Code.ERROR_STATE);
+        }
+        SysUser user = getUser(httpSession);
+        if (proClassify.getParentId() != null){
+            ProClassify parent = proClassifyService.selectById(proClassify.getParentId(), user.getId());
+            if (parent == null || !user.getId().equals(parent.getGmtUserId())) {
+                return new ResultEntity(ResultEntity.Code.ERROR_ADD.getCode(), "父类异常");
+            }
+        }
+        proClassify.setGmtUserId(user.getId());
+        proClassify.setGmtCreate(LocalDateTime.now());
+        proClassify.setGmtModified(LocalDateTime.now());
+        int count = proClassifyService.add(proClassify);
+        if (count > 0) {
+            return new ResultEntity(ResultEntity.Code.OK);
+        }
+        return new ResultEntity(ResultEntity.Code.ERROR_ADD);
+    }
+
 
 }

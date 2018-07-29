@@ -30,6 +30,7 @@ public class ResultEntity {
         ERROR_ADD(10103, "新增失败"),
         ERROR_STATE(10104, "状态错误"),
         ERROR_DELETE(10105, "删除失败"),
+        ERROR_OWE(10106, "删除失败"),
         USER_REG_ERROR(10200, "注册失败"),
         USER_REG_EXIST(10201, "用户名已经存在");
 
@@ -39,6 +40,14 @@ public class ResultEntity {
         private Code(Integer code, String message){
             this.code = code;
             this.message = message;
+        }
+
+        public Integer getCode(){
+            return this.code;
+        }
+
+        public String getMessage(){
+            return this.message;
         }
     }
 
