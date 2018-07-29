@@ -22,13 +22,13 @@ public class ProClassifyServiceImpl implements ProClassifyService {
 
 
     @Override
-    public ProClassify selectById(int id) {
-        return proClassifyMapper.selectByPrimaryKey(id);
+    public ProClassify selectById(int id, Integer userId) {
+        return proClassifyMapper.selectByPrimaryKey(id, userId);
     }
 
     @Override
-    public List<ProClassify> selectChildrens(int id, Integer[] status) {
-        return proClassifyMapper.selectChildrens(id, status);
+    public List<ProClassify> selectChildrens(int id, Integer[] status, Integer userId) {
+        return proClassifyMapper.selectChildrens(id, status, userId);
     }
 
     @Override
@@ -38,20 +38,20 @@ public class ProClassifyServiceImpl implements ProClassifyService {
 
     @Override
     public int updateStatus(int id, int status, int userId) {
-        ProClassify proClassify = selectById(id);
+        ProClassify proClassify = selectById(id, userId);
         if (proClassify == null || proClassify.getId() == null){
             return 0;
         }
-        proClassify.setUserId(userId);
+        proClassify.setGmtUserId(userId);
         proClassify.setStatus(status);
         proClassify.setGmtModified(LocalDateTime.now());
-        return proClassifyMapper.updateByPrimaryKeySelective(proClassify);
+        return proClassifyMapper.updateByPrimaryKeySelective(proClassify, userId);
     }
 
     @Override
     public int update(ProClassify proClassify, int userId) {
-        proClassify.setUserId(userId);
+        proClassify.setGmtUserId(userId);
         proClassify.setGmtModified(LocalDateTime.now());
-        return proClassifyMapper.updateByPrimaryKeySelective(proClassify);
+        return proClassifyMapper.updateByPrimaryKeySelective(proClassify, userId);
     }
 }

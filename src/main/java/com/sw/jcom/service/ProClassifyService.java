@@ -11,9 +11,9 @@ import java.util.List;
  */
 public interface ProClassifyService {
 
-    ProClassify selectById(int id);
+    ProClassify selectById(int id, Integer userId);
 
-    List<ProClassify> selectChildrens(int id, Integer[] status);
+    List<ProClassify> selectChildrens(int id, Integer[] status, Integer userId);
 
     int add(ProClassify proClassify);
 

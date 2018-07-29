@@ -1,6 +1,8 @@
 package com.sw.jcom.controller;
 
 import com.sw.jcom.common.Contents;
+import com.sw.jcom.common.exception.ExceptionEnum;
+import com.sw.jcom.common.exception.JcomException;
 import com.sw.jcom.domain.model.SysUser;
 import com.sw.jcom.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +25,13 @@ public abstract class BaseController {
      * @param session
      * @return
      */
-    SysUser getUser(HttpSession session){
-
+    SysUser getUser(HttpSession session) throws JcomException {
         UserDetails userDetails = (UserDetails) session.getAttribute(Contents.SESSION_USERDETAIL);
         String username = userDetails.getUsername();
-
-        return sysUserService.selectByUsername(username);
+        SysUser user = sysUserService.selectByUsername(username);
+        if(user == null || user.getId() == null){
+            throw new JcomException(ExceptionEnum.NO_USER);
+        }
+        return user;
     }
 }

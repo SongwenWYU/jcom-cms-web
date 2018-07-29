@@ -1,9 +1,12 @@
 package com.sw.jcom.controller;
 
+import com.sw.jcom.common.exception.JcomException;
 import com.sw.jcom.domain.model.ProClassify;
+import com.sw.jcom.domain.model.SysUser;
 import com.sw.jcom.service.ProClassifyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
@@ -29,13 +32,15 @@ public class ProClassifyController extends BaseController{
 
     /**
      * 查询用户下的分类
+     * @param id 父节点ID
      * @param status 状态
      * @param httpSession
      * @return
      */
-    public List<ProClassify> select(Integer[] status, HttpSession httpSession){
-
-        return null;
+    @PostMapping("/u/pro/classify/select")
+    public List<ProClassify> select(Integer id, Integer[] status, HttpSession httpSession) throws JcomException {
+        SysUser user = getUser(httpSession);
+        return proClassifyService.selectChildrens(id, status, user.getId());
     }
 
     /**
@@ -43,6 +48,7 @@ public class ProClassifyController extends BaseController{
      * @param id
      * @return
      */
+    @PostMapping("/u/pro/classify/selectById")
     public ProClassify select(Integer id, HttpSession httpSession){
 
         return null;
