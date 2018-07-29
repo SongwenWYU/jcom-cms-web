@@ -5,31 +5,45 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="classify_name" jdbcType="VARCHAR" property="classifyName" />
     <result column="parent_id" jdbcType="INTEGER" property="parentId" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
     <result column="gmt_user_id" jdbcType="INTEGER" property="gmtUserId" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, classify_name, parent_id, user_id, status, gmt_create, gmt_modified, gmt_user_id
+    id, classify_name, parent_id, status, gmt_create, gmt_modified, gmt_user_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from pro_classify
     where id = #{id,jdbcType=INTEGER}
+    and gmt_user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <select id="selectChildrens" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from pro_classify
+    where id = #{id,jdbcType=INTEGER}
+    and gmt_user_id = #{userId,jdbcType=INTEGER}
+    <if test="status != null">
+      and status in
+      <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from pro_classify
     where id = #{id,jdbcType=INTEGER}
+    and gmt_user_id = #{userId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.sw.jcom.domain.model.ProClassify">
     insert into pro_classify (id, classify_name, parent_id, 
-      user_id, status, gmt_create, 
+      status, gmt_create,
       gmt_modified, gmt_user_id)
     values (#{id,jdbcType=INTEGER}, #{classifyName,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
-      #{userId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP},
       #{gmtModified,jdbcType=TIMESTAMP}, #{gmtUserId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.sw.jcom.domain.model.ProClassify">
@@ -43,9 +57,6 @@
       </if>
       <if test="parentId != null">
         parent_id,
-      </if>
-      <if test="userId != null">
-        user_id,
       </if>
       <if test="status != null">
         status,
@@ -70,9 +81,6 @@
       <if test="parentId != null">
         #{parentId,jdbcType=INTEGER},
       </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
       </if>
@@ -96,9 +104,6 @@
       <if test="parentId != null">
         parent_id = #{parentId,jdbcType=INTEGER},
       </if>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
@@ -113,16 +118,17 @@
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
+    and gmt_user_id = #{userId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sw.jcom.domain.model.ProClassify">
     update pro_classify
     set classify_name = #{classifyName,jdbcType=VARCHAR},
       parent_id = #{parentId,jdbcType=INTEGER},
-      user_id = #{userId,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       gmt_user_id = #{gmtUserId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
+    and gmt_user_id = #{userId,jdbcType=INTEGER}
   </update>
 </mapper>

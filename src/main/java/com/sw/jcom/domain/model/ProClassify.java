@@ -43,12 +43,6 @@ public class ProClassify implements Serializable {
     private Integer parentId;
 
     /**
-     * 所属用户
-     */
-    @NotEmpty
-    private Integer userId;
-
-    /**
      * 状态。-1：归档，1：未归档
      */
     private Integer status;

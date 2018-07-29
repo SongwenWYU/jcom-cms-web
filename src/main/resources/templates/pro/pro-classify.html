@@ -8,9 +8,8 @@
 
     <script th:replace="/common/bootstrap"></script>
     <script th:replace="/common/adminlte"></script>
-    <script th:replace="/common/datatables"></script>
     <script th:replace="/common/jquery-confirm"></script>
-    <script th:replace="/common/select2"></script>
+    <script th:replace="/common/jtree"></script>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -32,16 +31,18 @@
                                 <div class="card-body">
                                     <form class="form-inline">
                                         <div class="form-row align-items-center col-12">
-                                            <div class="form-group">
-                                                <label class="col-auto col-form-label" for="username">用户名</label>
-                                                <input type="text" class="form-control" id="username" name="username" placeholder="填写用户名">
+
+                                            <div class="btn-group mr-2" role="group" aria-label="add group">
+                                                <button type="button" class="btn btn-primary">新增</button>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="col-auto col-form-label" for="nickname">昵称</label>
-                                                <input type="text" class="form-control" id="nickname" name="nickname" placeholder="填写昵称">
+                                            <div class="btn-group mr-2" role="group" aria-label="refresh group">
+                                                <button type="button" class="btn btn-success">刷新</button>
                                             </div>
-                                            <div class="col-auto col-sm-6">
-                                                <button type="button" id="query" class="btn btn-primary btn-sm">查询</button>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                                <label class="form-check-label" for="defaultCheck1">
+                                                    显示已归档分类
+                                                </label>
                                             </div>
                                         </div>
                                     </form>
@@ -50,11 +51,12 @@
 
                         </div>
 
-                        <div class="table-responsive">
-                            <!-- 表格-->
-                            <table id="classifyTable" class="table table-bordered table-striped">
+                        <div class="row">
+                            <div class="col-12">
+                                <div id="classify-tree">
 
-                            </table>
+                                </div>
+                            </div>
                         </div>
 
                         <!--<div class="row table-responsive p-0">-->
