@@ -27,8 +27,9 @@ public class ResultEntity {
         MENU_URL_EMPTY(10204, "菜单路径为空"),
         ERROR_EMPTY(10101, "填写信息有空值"),
         ERROR_UPDATE(10102, "更新失败"),
-        ERROR_ADD(10102, "新增失败"),
-        ERROR_DELETE(10103, "删除失败"),
+        ERROR_ADD(10103, "新增失败"),
+        ERROR_STATE(10104, "状态错误"),
+        ERROR_DELETE(10105, "删除失败"),
         USER_REG_ERROR(10200, "注册失败"),
         USER_REG_EXIST(10201, "用户名已经存在");
 
