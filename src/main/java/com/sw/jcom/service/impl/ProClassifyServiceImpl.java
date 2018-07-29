@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author songwen
@@ -28,7 +30,11 @@ public class ProClassifyServiceImpl implements ProClassifyService {
 
     @Override
     public List<ProClassify> selectChildrens(int id, Integer[] status, Integer userId) {
-        return proClassifyMapper.selectChildrens(id, status, userId);
+        Map<String, Object> map = new HashMap<>(0x04);
+        map.put("id", id);
+        map.put("status", status);
+        map.put("userId", userId);
+        return proClassifyMapper.selectChildrens(map);
     }
 
     @Override

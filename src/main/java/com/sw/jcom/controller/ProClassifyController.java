@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
@@ -41,6 +42,7 @@ public class ProClassifyController extends BaseController{
      * @param httpSession
      * @return
      */
+    @ResponseBody
     @PostMapping("select")
     public List<ProClassify> select(Integer id, Integer[] status, HttpSession httpSession) throws JcomException {
         SysUser user = getUser(httpSession);
@@ -52,12 +54,14 @@ public class ProClassifyController extends BaseController{
      * @param id
      * @return
      */
+    @ResponseBody
     @PostMapping("selectById")
     public ProClassify select(Integer id, HttpSession httpSession) throws JcomException {
         SysUser user = getUser(httpSession);
         return proClassifyService.selectById(id, user.getId());
     }
 
+    @ResponseBody
     @PostMapping("update")
     public ResultEntity update(ProClassify proClassify, HttpSession httpSession) throws JcomException {
         SysUser user = getUser(httpSession);
@@ -82,6 +86,7 @@ public class ProClassifyController extends BaseController{
         return new ResultEntity(ResultEntity.Code.ERROR_UPDATE);
     }
 
+    @ResponseBody
     @PostMapping("updateStatus")
     public ResultEntity updateStatus(int id, int status, HttpSession httpSession) throws JcomException {
         if(status != 1 && status != -1){
@@ -95,6 +100,7 @@ public class ProClassifyController extends BaseController{
         return new ResultEntity(ResultEntity.Code.ERROR_UPDATE);
     }
 
+    @ResponseBody
     @PostMapping("add")
     public ResultEntity insert(ProClassify proClassify, HttpSession httpSession) throws JcomException {
         if(StringUtils.isBlank(proClassify.getClassifyName())){
